@@ -28,5 +28,5 @@ yarn-error.log*
 mssp-back.log
 msspBack.log
 ClientDict.json
-
+uploads/*
 mssp_envpython.exe
