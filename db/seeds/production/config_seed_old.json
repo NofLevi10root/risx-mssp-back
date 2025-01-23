@@ -1,0 +1,104 @@
+{
+  "General": {
+    "DefaultInter": ""
+  },
+  "ClientInfrastructure": {
+    "Assets": {
+    },
+    "Population": [
+    ]
+  },
+
+  "ClientData": {
+    "API": {
+      "Shodan": "APIKey",
+      "Dehashed": "APIKey",
+      "OpenAI": "APIKey"
+    }
+  },
+
+  "Modules": {
+    "Velociraptor": {
+      "id": "2000000",
+      "ModuleName": "Velociraptor",
+      "Enable": false,
+      "LastRunDate": "2024-06-02 10:15:17",
+      "ExpireDate": "0",
+
+      "SubModules": {
+        "PersistenceSniper": {
+          "id": "1000104",
+          "ModuleName": "PersistenceSniper",
+          "Enable": false,
+          "ExpireDate": "2000",
+          "TimeInterval": "15",
+          "LastRunDate": "2024-06-02 10:15:17",
+          "Arguments": {}
+        },
+        "HardeningKitty": {
+          "id": "1000103",
+          "ModuleName": "HardeningKitty",
+          "Enable": false,
+          "ExpireDate": "2000",
+          "TimeInterval": "15",
+          "LastRunDate": "2024-06-02 10:15:17",
+          "Arguments": {
+            "TakeBackUp": "N",
+            "Baseline": "finding_list_0x6d69636b_machine"
+          }
+        },
+        "Zircolite": {
+          "id": "1000102",
+          "ModuleName": "Zircolite",
+          "Enable": false,
+          "ExpireDate": "2000",
+          "TimeInterval": "15",
+          "LastRunDate": "2024-06-02 10:15:17",
+          "Arguments": {
+            "EVTXPath": "C:\\\\Windows\\\\System32\\\\winevt\\\\Logs",
+            "Rules": "https:\\\\raw.githubusercontent.com\\\\wagga40\\\\Zircolite\\\\master\\\\rules\\\\rules_windows_generic.json",
+            "Mappings": "https:\\\\raw.githubusercontent.com\\\\wagga40\\\\Zircolite\\\\master\\\\config\\\\fieldMappings.json"
+          }
+        },
+        "Hayabusa": {
+          "id": "1000105",
+          "ModuleName": "Hayabusa",
+          "Enable": false,
+          "ExpireDate": "2000",
+          "TimeInterval": "15",
+          "LastRunDate": "2024-06-02 10:15:17",
+          "Arguments": {
+            "UTC": "Y",
+            "UpdateRules": "Y",
+            "NoisyRules": "N",
+            "OutputProfile": "standard",
+            "EIDFilter": "N",
+            "MinimalLevel": "informational",
+            "Threads": "2"
+          }
+        }
+      }
+    },
+    "Nuclei": {
+      "id": "2001005",
+      "ModuleName": "Nuclei",
+      "Enable": true,
+      "LastRunDate": "2024-06-02 10:15:17",
+      "ExpireDate": "0",
+      "Arguments": {
+        "NucleiTags": "",
+        "NucleiWorkflow": "",
+        "NucleiExcludeSeverity": ""
+      }
+    },
+    "TimeSketch": {
+      "id": "2001002",
+      "Enable": false,
+      "Arguments": {},
+      "ModuleName": "TimeSketch",
+      "ExpireDate": "0",
+      "LastRunDate": "2024-06-02 10:15:17"
+    }
+  },
+  "RequestStatus": []
+}

@@ -1,0 +1,266 @@
+{
+  "General": {
+    "AlertSortDate": "2025-01-21T09:18:58.026Z",
+    "AlertDictionary": {
+      "Exchange.Windows.ETW.Powershell": {
+        "Log": true,
+        "Show": true,
+        "Name": "Powershell Monitoring",
+        "Description": "Powershell scriptblock and commandlet load monitoring."
+      },
+      "Custom.Windows.FailedLogins": {
+        "Log": true,
+        "Show": true,
+        "Name": "Failed Login Attempt",
+        "Description": "Monitor for failed login attempts on Windows systems"
+      },
+      "Windows.Detection.PsexecService": {
+        "Log": true,
+        "Show": true,
+        "Name": "Psexec Service History",
+        "Description": "PSExec works by installing a new service in the system. The service can be renamed using the -r flag and therefore it is not enough to just watch for a new service called psexecsvc.exe. This artifact improves on this by scanning the service binary to detect the original psexec binary."
+      },
+      "Generic.Client.Stats": {
+        "Log": false,
+        "Show": false,
+        "Name": "Client Stats",
+        "Description": "To Much Data Ignore"
+      }
+    },
+    "AgentLinks": {
+      "Mac": "/velociraptor/clients/mac/velociraptor_client_repacked",
+      "Linux": "/velociraptor/clients/linux/velociraptor_client_repacked",
+      "Windows": "/velociraptor/clients/windows/velociraptor_client_repacked.msi"
+    },
+    "IntervalConfigurations": {
+      "IntervalTimes": {
+        "GetDashboardsDataInMinutes": 10,
+        "GetAlertsDataInMinutes": 10,
+        "GetModulesUpdatesInMinutes": 1440,
+        "GetResultsDataInMinutes": 2
+      },
+      "ModulesUpdates": {
+        "UpdateVelociraptorModules": [
+          "Server.Import.ArtifactExchange",
+          "Server.Import.CuratedSigma",
+          "Exchange.Server.Import.DetectRaptor",
+          "Server.Import.RegistryHunter"
+        ],
+        "GeneralModulesToUpdate": []
+      },
+      "ScanHunts": {
+        "TimeIntervalInMinutes": 1
+      },
+      "MispConfiguration": {
+        "RecentHostTimeMispInHours": 24
+      },
+      "AlertsConfiguration": {
+        "LastTimeStampInterval": 1,
+        "AlertResultPerArtifactLimit": 200
+      }
+    }
+  },
+  "ClientInfrastructure": {
+    "Assets": {
+      "Example": {
+        "AssetString": "Example@Example",
+        "AssetParentId": "",
+        "AssetEnable": 0,
+        "AssetType": ["IP Address"],
+        "AssetModules": ["Velociraptor", "Nuclei"],
+        "LastRunDate": "2024-06-02 10:15:17"
+      }
+    }
+  },
+
+  "ClientData": {
+    "API": {
+      "Timesketch": {
+        "Password": "importing",
+        "Username": "import",
+        "IP": "localhost"
+      },
+      "LeakCheck": "APIKey",
+      "Shodan": "APIKey",
+      "Dehashed": "APIKey",
+      "OpenAI": "APIKey",
+      "MISP": "APIKey",
+      "OpenCTI": "APIKey"
+    }
+  },
+
+  "Modules": {
+    "LeakCheck": {
+      "id": "2001013",
+      "Enable": 0,
+      "ModuleName": "LeakCheck",
+      "LastRunDate": "2024-06-02 10:15:17",
+      "ExpireDate": "0",
+      "Arguments": {}
+    },
+    "Shodan": {
+      "id": "2001011",
+      "Enable": 0,
+      "ModuleName": "Shodan",
+      "LastRunDate": "2024-06-02 10:15:17",
+      "ExpireDate": "0",
+      "Arguments": {}
+    },
+
+    "Velociraptor": {
+      "id": "2000000",
+      "ModuleName": "Velociraptor",
+      "LastRunDate": "2024-06-02 10:15:17",
+      "ExpireDate": "0",
+
+      "SubModules": {
+        "BestPractice": {
+          "Enable": 0,
+          "ExpireDate": "500",
+          "id": "1000106",
+          "ModuleName": "BestPractice",
+          "TimeInterval": "5",
+          "LastRunDate": "2024-06-02 10:15:17",
+          "ArtifactTimeOutInMinutes": 600,
+          "Arguments": {
+            "ArtifactResourceLimit": {
+              "CPULimitPercent": "60",
+              "MaxExecutionTimeInSeconds": "3600",
+              "MaxBytesUploaded": "10000"
+            },
+            "Modules": {
+              "DetectRaptor.Server.StartHunts": {},
+              "Generic.Forensic.SQLiteHunter": {},
+              "Windows.Analysis.EvidenceOfDownload": {},
+              "Windows.Analysis.EvidenceOfExecution": {},
+              "Windows.NTFS.MFT": {},
+              "Windows.Forensics.Usn": {},
+              "Windows.Network.NetstatEnriched": {},
+              "Generic.Scanner.ThorZIP": {},
+              "Exchange.Custom.Windows.Nirsoft.LastActivityView": {},
+              "Custom.Windows.System.Powershell.PSReadline.QuickWins": {},
+              "Windows.Forensics.Lnk": {},
+              "Exchange.PSList.VTLookup.ServerMetaData": {},
+              "Generic.System.Pstree": {},
+              "Windows.System.UntrustedBinaries": {},
+              "Windows.Detection.Yara.Process": {},
+              "Windows.EventLogs.RDPAuth": {},
+              "Windows.Attack.UnexpectedImagePath": {},
+              "Windows.Sys.AllUsers": {},
+              "Windows.Registry.Sysinternals.Eulacheck": {}
+            }
+          }
+        },
+        "PersistenceSniper": {
+          "id": "1000104",
+          "ModuleName": "PersistenceSniper",
+          "Enable": 0,
+          "ExpireDate": "500",
+          "TimeInterval": "5",
+          "LastRunDate": "2024-06-02 10:15:17",
+          "ArtifactTimeOutInMinutes": 600,
+          "Arguments": {
+            "ArtifactResourceLimit": {
+              "CPULimitPercent": "60",
+              "MaxExecutionTimeInSeconds": "3600",
+              "MaxBytesUploaded": "10000"
+            },
+            "ArtifactParameters": {}
+          }
+        },
+        "HardeningKitty": {
+          "id": "1000103",
+          "ModuleName": "HardeningKitty",
+          "Enable": 0,
+          "ExpireDate": "500",
+          "TimeInterval": "5",
+          "LastRunDate": "2024-06-02 10:15:17",
+          "ArtifactTimeOutInMinutes": 600,
+          "Arguments": {
+            "ArtifactResourceLimit": {
+              "CPULimitPercent": "60",
+              "MaxExecutionTimeInSeconds": "3600",
+              "MaxBytesUploaded": "10000"
+            },
+            "ArtifactParameters": {
+              "TakeBackUp": "N",
+              "Baseline": "finding_list_0x6d69636b_machine"
+            }
+          }
+        },
+        "Hayabusa": {
+          "id": "1000105",
+          "ModuleName": "Hayabusa",
+          "Enable": 0,
+          "ExpireDate": "500",
+          "TimeInterval": "5",
+          "LastRunDate": "2024-06-02 10:15:17",
+          "ArtifactTimeOutInMinutes": 600,
+          "Arguments": {
+            "ArtifactResourceLimit": {
+              "CPULimitPercent": "60",
+              "MaxExecutionTimeInSeconds": "3600",
+              "MaxBytesUploaded": "10000"
+            },
+            "ArtifactParameters": {
+              "ROOT": "C:\\\\Windows\\\\System32\\\\WinEvt\\\\Logs\\\\",
+              "Debug": "N",
+              "RuleLevel": "Critical and High",
+              "RuleStatus": "Stable",
+              "RuleTitleFilter": ".",
+              "SigmaRules": "",
+              "NTFS_CACHE_TIME": "1000000"
+            }
+          }
+        },
+        "Kape": {
+          "id": "",
+          "ModuleName": "Kape",
+          "Enable": 0,
+          "ExpireDate": "60",
+          "TimeInterval": "5",
+          "LastRunDate": "2024-06-02 10:15:17",
+          "ArtifactTimeOutInMinutes": 7200,
+          "Arguments": {
+            "ArtifactResourceLimit": {
+              "CPULimitPercent": "60",
+              "MaxExecutionTimeInSeconds": "3600",
+              "MaxBytesUploaded": "10000"
+            },
+            "ArtifactParameters": {
+              "KapeCollection": "KapeTriage"
+            }
+          }
+        }
+      }
+    },
+    "Nuclei": {
+      "id": "2001005",
+      "ModuleName": "Nuclei",
+      "Enable": 0,
+      "LastRunDate": "2024-06-02 10:15:17",
+      "ExpireDate": "0",
+      "Arguments": {
+        "NucleiTags": "",
+        "NucleiWorkflow": "",
+        "NucleiExcludeSeverity": [],
+        "NucleiArgumentFlags": []
+      }
+    },
+    "TimeSketch": {
+      "id": "2001002",
+      "Enable": 0,
+      "Arguments": {
+        "SketchName": "Timelines",
+        "Analyzers": [],
+        "CPUThrottling": "75",
+        "MemoryThrottling": "75",
+        "KapeCollection": "KapeTriage"
+      },
+      "ModuleName": "TimeSketch",
+      "ExpireDate": "480",
+      "LastRunDate": "2024-06-02 10:15:17"
+    }
+  },
+  "RequestStatus": []
+}
