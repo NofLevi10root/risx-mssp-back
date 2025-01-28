@@ -579,21 +579,21 @@ async function ImportVeloResultModal(command) {
         exec(command, { shell: "/bin/bash" }, (error, stdout, stderr) => {
           if (error) {
             console.error(`Error executing command: ${error.message}`);
-            reject(false);
+            resolve(false);
             return;
           }
 
           if (stderr) {
             console.error(`Error: ${stderr}`);
-            reject(false);
+            resolve(false);
             return;
           }
 
           // Check if any line contains the file name
           const lines = stdout?.trim()?.split("\n");
-
-          // console.log(lines);
-
+          console.log("Start of stdout");
+          console.log(lines);
+          console.log("End of stdout");
           resolve(true);
         });
       } catch (error) {

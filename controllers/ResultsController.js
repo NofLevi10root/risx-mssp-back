@@ -269,21 +269,54 @@ async function ImportVeloResult(req, res, next) {
     );
     const Hostname = req.body?.fileName?.split("-r___r-")?.[1]?.split("_")?.[0];
     console.log(Hostname, "Hostname For Velociraptor Client");
-    return;
-    const command =
-      "python " +
-      PYTHON_SCRIPT_PATH +
-      ` "${req.body.PathOfFile}" "${Hostname ? Hostname : "offline_host"}"`;
-    // console.log("Command for Python in velo upload: ",command);
+    const command = `7z x "${req.body.FileZipPath}" -o"${req.body.FileFolder}"`;
+    console.log("Command for Zip Assemble in velo upload: ", command);
 
     const response = await ImportVeloResultModal(command);
+    console.log("response response response Zip :", response);
+
     if (response) {
-      res.send(response);
+      const command2 =
+        "python " +
+        PYTHON_SCRIPT_PATH +
+        ` "${req.body.PathOfFile}" "${Hostname ? Hostname : "offline_host"}" "${req.body.FileFolder}"`;
+      console.log("Command for Python in velo upload: ", command2);
+      const response2 = await ImportVeloResultModal(command2);
+      console.log(
+        "response2 response2 response2 response2 response2 Velo Upload : ",
+        response2
+      );
+      if (response2) {
+        console.log("Velociraptor Upload Started");
+
+        res.send(true);
+      } else {
+        console.log("Error In Upload");
+
+        res.status(500);
+      }
     } else {
+      console.log("Error in Zip Assemble");
+      console.log(
+        "req.body.FileFolder req.body.FileFolder ",
+        req.body.FileFolder
+      );
+
+      // const del = await fs.rm(req.body.FileFolder,{recursive:true,force:true})
+      // console.log(`Delete Folder Form ${req.body.FileFolder} `,del);
+
       res.status(500);
     }
   } catch (error) {
     console.log("Error in ImportVeloResult");
+
+    console.log(
+      "req.body.FileFolder req.body.FileFolder ",
+      req.body.FileFolder
+    );
+
+    // const del = await fs.rm(req.body.FileFolder,{recursive:true,force:true})
+    // console.log(`Delete Folder Form ${req.body.FileFolder} `,del);
   }
 }
 
