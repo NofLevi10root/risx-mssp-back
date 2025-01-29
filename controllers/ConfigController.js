@@ -286,6 +286,7 @@ async function GetAllVeloConfig(req, res, next) {
           EncryptionSchemeValue: "",
           CollectorFileName: "Collector-ChangeName",
           OutputsFileName: "Collector-ChangeName-Outputs",
+          ZipSplitSizeInMb: 1000,
         },
       },
     };

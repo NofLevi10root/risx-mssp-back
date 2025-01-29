@@ -98,13 +98,7 @@ async function Update_mssp_config_json_links_model(body) {
         mssp_config_json
       );
     } else if (process.env.NODE_ENV === "production") {
-      path_to_mssp_config_json = path.join(
-        __dirname,
-        "..",
-        "..",
-        "risx-mssp-front-build",
-        mssp_config_json
-      );
+      path_to_mssp_config_json = "/frontend/mssp_config.json"
     }
 
     if (!path_to_mssp_config_json) {

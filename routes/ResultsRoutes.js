@@ -8,7 +8,7 @@ const storage = multer.diskStorage({
     try {
       const directoryPath = path.join(
         "/tmp",
-        path.parse(file.originalname).name.split("-split-")[0]
+        path.parse(file.originalname).name.split("-r___r-")[0]
       );
 
       console.log(
@@ -22,8 +22,15 @@ const storage = multer.diskStorage({
         await fs.mkdirSync(directoryPath);
         console.log(22);
       }
-      req.body.PathOfFile = path.join(directoryPath, file.originalname);
+      req.body.PathOfFile = path.join(
+        directoryPath,
+        path.parse(file.originalname).name.replace(".7z", ".zip")
+      );
       req.body.FileFolder = directoryPath;
+      req.body.FileZipPath = path.join(
+        directoryPath,
+        path.parse(file.originalname).name + ".001"
+      );
 
       cb(null, directoryPath);
     } catch (error) {
