@@ -31,6 +31,8 @@ const storage = multer.diskStorage({
         directoryPath,
         path.parse(file.originalname).name + ".001"
       );
+      console.log("File Prep Done ", file.originalname);
+      
 
       cb(null, directoryPath);
     } catch (error) {
