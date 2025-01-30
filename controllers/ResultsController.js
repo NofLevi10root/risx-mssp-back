@@ -279,7 +279,9 @@ async function ImportVeloResult(req, res, next) {
       const command2 =
         "python " +
         PYTHON_SCRIPT_PATH +
-        ` "${req.body.PathOfFile}" "${Hostname ? Hostname : "offline_host"}" "${req.body.FileFolder}"`;
+        ` "${req.body.PathOfFile}" "${Hostname ? Hostname : "offline_host"}" "${
+          req.body.FileFolder
+        }"`;
       console.log("Command for Python in velo upload: ", command2);
       const response2 = await ImportVeloResultModal(command2);
       console.log(
@@ -293,7 +295,7 @@ async function ImportVeloResult(req, res, next) {
       } else {
         console.log("Error In Upload");
 
-        res.status(500);
+        res.send("Error in Creating zip");
       }
     } else {
       console.log("Error in Zip Assemble");
@@ -305,7 +307,7 @@ async function ImportVeloResult(req, res, next) {
       // const del = await fs.rm(req.body.FileFolder,{recursive:true,force:true})
       // console.log(`Delete Folder Form ${req.body.FileFolder} `,del);
 
-      res.status(500);
+      res.send(false);
     }
   } catch (error) {
     console.log("Error in ImportVeloResult");
@@ -314,7 +316,7 @@ async function ImportVeloResult(req, res, next) {
       "req.body.FileFolder req.body.FileFolder ",
       req.body.FileFolder
     );
-
+    res.status(400);
     // const del = await fs.rm(req.body.FileFolder,{recursive:true,force:true})
     // console.log(`Delete Folder Form ${req.body.FileFolder} `,del);
   }
