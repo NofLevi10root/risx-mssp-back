@@ -36,10 +36,6 @@ exports.seed = async function (knex) {
       config: JSON.stringify({
         Artifacts: [
           {
-            name: "DetectRaptor.Server.StartHunts",
-            parameters: {},
-          },
-          {
             name: "Generic.Forensic.SQLiteHunter",
             parameters: {},
           },
@@ -63,10 +59,7 @@ exports.seed = async function (knex) {
             name: "Windows.Network.NetstatEnriched",
             parameters: {},
           },
-          {
-            name: "Generic.Scanner.ThorZIP",
-            parameters: {},
-          },
+
           {
             name: "Exchange.Custom.Windows.Nirsoft.LastActivityView",
             parameters: {},
@@ -109,6 +102,82 @@ exports.seed = async function (knex) {
           },
           {
             name: "Windows.Registry.Sysinternals.Eulacheck",
+            parameters: {},
+          },
+          {
+            name: "DetectRaptor.Generic.Detection.YaraFile",
+            parameters: {},
+          },
+          {
+            name: "DetectRaptor.Generic.Detection.YaraWebshell",
+            parameters: {},
+          },
+          {
+            name: "DetectRaptor.Windows.Detection.Acmache",
+            parameters: {},
+          },
+          {
+            name: "DetectRaptor.Windows.Detection.Applications",
+            parameters: {},
+          },
+          {
+            name: "DetectRaptor.Windows.Detection.BinaryRename",
+            parameters: {},
+          },
+          {
+            name: "DetectRaptor.Windows.Detection.Bootloaders",
+            parameters: {},
+          },
+          {
+            name: "DetectRaptor.Windows.Detection.Evtx",
+            parameters: {},
+          },
+          {
+            name: "DetectRaptor.Windows.Detection.HijackLibsEnv",
+            parameters: {},
+          },
+          {
+            name: "DetectRaptor.Windows.Detection.HijackLibsMFT",
+            parameters: {},
+          },
+          {
+            name: "DetectRaptor.Windows.Detection.LoLDriversMalicious",
+            parameters: {},
+          },
+          {
+            name: "DetectRaptor.Windows.Detection.LoLDriversVulnerable",
+            parameters: {},
+          },
+          {
+            name: "DetectRaptor.Windows.Detection.MFT",
+            parameters: {},
+          },
+          {
+            name: "DetectRaptor.Windows.Detection.MFT.Erasing.Tools",
+            parameters: {},
+          },
+          {
+            name: "DetectRaptor.Windows.Detection.NamedPipes",
+            parameters: {},
+          },
+          {
+            name: "DetectRaptor.Windows.Detection.Powershell.ISEAutoSave",
+            parameters: {},
+          },
+          {
+            name: "DetectRaptor.Windows.Detection.Powershell.PSReadline",
+            parameters: {},
+          },
+          {
+            name: "DetectRaptor.Windows.Detection.Webhistory",
+            parameters: {},
+          },
+          {
+            name: "DetectRaptor.Windows.Detection.YaraProcessWin",
+            parameters: {},
+          },
+          {
+            name: "DetectRaptor.Windows.Detection.ZoneIdentifier",
             parameters: {},
           },
         ],
