@@ -89,7 +89,7 @@ async function UpdateAlertFile(Info) {
 async function GetSortDate() {
   try {
     const [[AletDic]] = await DBConnection.raw(
-      'SELECT JSON_EXTRACT(config,"$.General.AlertSortDate") as a from configjson'
+      'SELECT JSON_EXTRACT(config,"$.General.IntervalConfigurations.AlertsConfiguration.AlertSortDate") as a from configjson'
     );
     return AletDic.a
   } catch (error) {

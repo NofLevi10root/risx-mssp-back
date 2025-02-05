@@ -1,6 +1,5 @@
 {
   "General": {
-    "AlertSortDate": "2025-01-21T09:18:58.026Z",
     "AlertDictionary": {
       "Exchange.Windows.ETW.Powershell": {
         "Log": true,
@@ -56,7 +55,9 @@
       },
       "AlertsConfiguration": {
         "LastTimeStampInterval": 1,
-        "AlertResultPerArtifactLimit": 200
+        "AlertResultPerArtifactLimit": 200,
+        "AlertSortDate": "2025-01-21T09:18:58.026Z",
+        "SuspiciousFileSecondsCheck":30
       }
     }
   },
