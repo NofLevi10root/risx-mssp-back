@@ -57,7 +57,7 @@
         "LastTimeStampInterval": 1,
         "AlertResultPerArtifactLimit": 200,
         "AlertSortDate": "2025-01-21T09:18:58.026Z",
-        "SuspiciousFileSecondsCheck":30
+        "SuspiciousFileSecondsCheck": 30
       }
     }
   },
@@ -80,6 +80,9 @@
         "Password": "importing",
         "Username": "import",
         "IP": "localhost"
+      },
+      "Elastic": {
+        "Ip": "localhost"
       },
       "LeakCheck": "APIKey",
       "Shodan": "APIKey",
