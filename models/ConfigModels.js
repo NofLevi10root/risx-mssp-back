@@ -238,13 +238,12 @@ async function GetSpecificCollectorModal(command) {
           // Check if any line contains the file name
           const lines = stdout?.trim()?.split("\n");
 
-          console.log(
-            lines.length,
-            lines[lines.length - 1]?.split("cut")[1]?.trim(),
-            "stdout.trim() NOW NOW"
-          );
+    
+          const filePathResolveStuff = lines[lines.length - 1]?.split("cut")[1]?.trim()
+          console.log("filePathResolveStuff filePathResolveStuff filePathResolveStuff ",filePathResolveStuff);
+          
 
-          resolve(lines[lines.length - 1]?.split("cut")[1]?.trim());
+          resolve(filePathResolveStuff);
         });
       } catch (error) {
         console.log("Error in exec GetSpecificCollectorModal ", error);

@@ -584,8 +584,8 @@ async function ImportVeloResultModal(command) {
           }
 
           if (stderr) {
-            console.error(`Error: ${stderr}`);
-            resolve(false);
+            console.log(`Error: ${stderr}`);
+            // resolve(false);
             return;
           }
 
@@ -598,6 +598,7 @@ async function ImportVeloResultModal(command) {
         });
       } catch (error) {
         console.log("Error in exec ImportVeloResultModal ", error);
+        resolve(false);
       }
     });
   } catch (err) {

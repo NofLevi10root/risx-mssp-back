@@ -355,7 +355,7 @@ async function GetSpecificCollector(req, res, next) {
       const exist = await fs.existsSync(PythonCollectorPath);
       console.log(
         exist,
-        "ooooooooooooooooooooooooooooooooossssssssssssssssssssssssss"
+        "ooooooooooooooooooooooooooooooooosssssssssssssscssssssssssss"
       );
       if (exist) {
         res.download(PythonCollectorPath);
