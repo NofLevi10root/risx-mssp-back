@@ -257,6 +257,9 @@ async function ImportVeloResult(req, res, next) {
       req.body.PathOfFile,
       "ImportVeloResult ImportVeloResult ImportVeloResult ImportVeloResult ImportVeloResult s"
     );
+    console.log(`File Uploaded successfully ${req.body?.fileName}`);
+    res.send(true)
+    
     const PYTHON_SCRIPTS_RELATIVE_PATH =
       process.env.PYTHON_SCRIPTS_RELATIVE_PATH;
     const RELATIVE_PATH = path.resolve(__dirname, "..", "..");
@@ -291,11 +294,11 @@ async function ImportVeloResult(req, res, next) {
       if (response2) {
         console.log("Velociraptor Upload Started");
 
-        res.send(true);
+        // res.send(true);
       } else {
         console.log("Error In Upload");
 
-        res.send("Error in Creating zip");
+        // res.send("Error in Creating zip");
       }
     } else {
       console.log("Error in Zip Assemble");
@@ -307,7 +310,7 @@ async function ImportVeloResult(req, res, next) {
       // const del = await fs.rm(req.body.FileFolder,{recursive:true,force:true})
       // console.log(`Delete Folder Form ${req.body.FileFolder} `,del);
 
-      res.send(false);
+      // res.send(false);
     }
   } catch (error) {
     console.log("Error in ImportVeloResult");

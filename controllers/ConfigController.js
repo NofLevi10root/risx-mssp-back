@@ -357,8 +357,16 @@ async function GetSpecificCollector(req, res, next) {
         exist,
         "ooooooooooooooooooooooooooooooooosssssssssssssscssssssssssss"
       );
+      const folderToDelete = path.dirname(PythonCollectorPath);
+      console.log(
+        "folderToDelete folderToDelete folderToDelete folderToDelete folderToDelete",
+        folderToDelete
+      );
+
       if (exist) {
-        res.download(PythonCollectorPath);
+        // res.write("this is the folder to delete");
+        await res.download(PythonCollectorPath);
+        console.log("End Of download 111111111111111111111111");
       } else {
         res.status(401).send({ error: "no such file" });
       }
