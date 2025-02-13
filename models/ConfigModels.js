@@ -59,6 +59,8 @@ async function get_full_config_model() {
     const [the_config_json] = await DBConnection(config_table).select(
       config_column
     );
+
+    
     // console.log("the_config_json  "  , the_config_json);
     // console.log("the_config_json  "  , the_config_json.config.Modules.Nuclei);
     // const [Nuclei] = await DBConnection.raw('SELECT JSON_EXTRACT(config,"$.Modules.Nuclei") as data FROM configjson;');
@@ -98,7 +100,7 @@ async function Update_mssp_config_json_links_model(body) {
         mssp_config_json
       );
     } else if (process.env.NODE_ENV === "production") {
-      path_to_mssp_config_json = "/frontend/mssp_config.json"
+      path_to_mssp_config_json = "/frontend/mssp_config.json";
     }
 
     if (!path_to_mssp_config_json) {
@@ -221,7 +223,6 @@ async function GetSpecificCollectorModal(command) {
     console.log("start GetSpecificCollectorModal");
     return new Promise((resolve, reject) => {
       try {
-
         exec(command, { shell: "/bin/bash" }, (error, stdout, stderr) => {
           if (error) {
             console.error(`Error executing command: ${error.message}`);
@@ -238,10 +239,13 @@ async function GetSpecificCollectorModal(command) {
           // Check if any line contains the file name
           const lines = stdout?.trim()?.split("\n");
 
-    
-          const filePathResolveStuff = lines[lines.length - 1]?.split("cut")[1]?.trim()
-          console.log("filePathResolveStuff filePathResolveStuff filePathResolveStuff ",filePathResolveStuff);
-          
+          const filePathResolveStuff = lines[lines.length - 1]
+            ?.split("cut")[1]
+            ?.trim();
+          console.log(
+            "filePathResolveStuff filePathResolveStuff filePathResolveStuff ",
+            filePathResolveStuff
+          );
 
           resolve(filePathResolveStuff);
         });
