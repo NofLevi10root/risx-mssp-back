@@ -84,4 +84,8 @@ router.post("/AddEntity", ResourcesController.AddEntity);
 
 router.put("/UpdateEntity", ResourcesController.UpdateEntity);
 
+router.post("/AddTagToResource", ResourcesController.AddTagToResource);
+router.post("/DeleteTagToResource", ResourcesController.DeleteTagToResource);
+
+
 module.exports = router;

@@ -17,6 +17,8 @@ const {
   AddEntityModal,
   UpdateEntityModal,
   DeleteSingleEntityModal,
+  AddTagToResourceModal,
+  DeleteTagToResourceModal,
 } = require("../models/ResourcesModels");
 
 const DBConnection = require("../db.js");
@@ -485,7 +487,6 @@ async function getFullCategoryAndEntitiesList(req, res, next) {
     arr[0]?.objFull.forEach((z) => {
       const dateArr = [];
       z?.entities?.forEach((w) => {
-
         const maxDate = Math.max(
           ...w?.properties.map((cur) => new Date(cur?.checked)?.getTime())
         );
@@ -562,7 +563,29 @@ async function DeleteSingleEntity(req, res, next) {
   }
 }
 
+async function AddTagToResource(req, res, next) {
+  try {
+    const { id, tag } = req.body;
+    const AddTagAction = await AddTagToResourceModal(id, tag);
+    res.send(true);
+  } catch (err) {
+    console.log("Error in AddTagToResource", err);
+  }
+}
+
+async function DeleteTagToResource(req, res, next) {
+  try {
+    const { id, tag } = req.body;
+    const DeleteTagAction = await DeleteTagToResourceModal(id, tag);
+    res.send({ newTags: DeleteTagAction });
+  } catch (err) {
+    console.log("Error in DeleteTagToResource", err);
+  }
+}
+
 module.exports = {
+  DeleteTagToResource,
+  AddTagToResource,
   DeleteSingleEntity,
   UpdateEntity,
   AddEntity,

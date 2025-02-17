@@ -587,7 +587,55 @@ async function GetAllEntitiesAndAssetsModal() {
   }
 }
 
+async function AddTagToResourceModal(id, tag) {
+  try {
+    let TableName = "tools";
+    let IdField = "tool_id";
+    if (id?.startsWith("100")) {
+      TableName = "artifacts";
+      IdField = "artifact_id";
+    }
+    const ResTags = await DBConnection.raw(
+      `update ${TableName} set arguments = json_array_append(arguments,"$.tags","${tag}") where ${IdField} = '${id}';`
+    );
+    console.log("ResTags ResTags ResTags ResTags ResTags", ResTags);
+
+    return true;
+  } catch (error) {
+    console.log("Error GetAllEntitiesAndAssetsModal : ", error);
+  }
+}
+
+async function DeleteTagToResourceModal(id, tag) {
+  try {
+    let TableName = "tools";
+    let IdField = "tool_id";
+    if (id?.startsWith("100")) {
+      TableName = "artifacts";
+      IdField = "artifact_id";
+    }
+    const [ResTags] = await DBConnection.raw(
+      `SELECT json_Extract(arguments,"$.tags") as a FROM ${TableName}  where ${IdField} = '${id}'
+      `
+    );
+    console.log("ResTags ResTags ResTags ResTags ResTags", ResTags[0].a);
+    const newTags = ResTags[0]?.a?.filter((rr) => rr != tag);
+    console.log("newTags newTags newTags ", newTags?.join('","'));
+    const [DelTags] = await DBConnection.raw(
+      `update ${TableName} set arguments = JSON_SET(arguments,"$.tags",json_array(${
+        newTags?.length ? `"${newTags?.join('","')}"` : ""
+      })) where ${IdField} = '${id}'; `
+    );
+
+    return newTags;
+  } catch (error) {
+    console.log("Error GetAllEntitiesAndAssetsModal : ", error);
+  }
+}
+
 module.exports = {
+  DeleteTagToResourceModal,
+  AddTagToResourceModal,
   GetAllEntitiesAndAssetsModal,
   DeleteSingleEntityModal,
   UpdateEntityModal,

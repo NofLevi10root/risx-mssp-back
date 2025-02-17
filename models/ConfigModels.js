@@ -60,7 +60,6 @@ async function get_full_config_model() {
       config_column
     );
 
-    
     // console.log("the_config_json  "  , the_config_json);
     // console.log("the_config_json  "  , the_config_json.config.Modules.Nuclei);
     // const [Nuclei] = await DBConnection.raw('SELECT JSON_EXTRACT(config,"$.Modules.Nuclei") as data FROM configjson;');
