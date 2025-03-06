@@ -83,19 +83,40 @@ async function UpdateAlertFile(Info) {
   }
 }
 
-
-
-
 async function GetSortDate() {
   try {
     const [[AletDic]] = await DBConnection.raw(
       'SELECT JSON_EXTRACT(config,"$.General.IntervalConfigurations.AlertsConfiguration.AlertSortDate") as a from configjson'
     );
-    return AletDic.a
+    return AletDic.a;
   } catch (error) {
-    console.log("Error in GetSortDate : ",error);
-    
+    console.log("Error in GetSortDate : ", error);
   }
-  
 }
-module.exports = { GetAlertsFile, UpdateAlertFile,GetSortDate };
+
+async function GetSortDate(bool) {
+  try {
+    const quer = `SELECT JSON_EXTRACT(config,'$.General.AlertDictionary.${'"Python.Suspicious.File.Found"'}.Log') as a from configjson`;
+    const [[AletDic2]] = await DBConnection.raw(quer);
+    console.log(quer, "AletDic2AletDic2AletDic2AletDic2AletDic2", AletDic2);
+
+    const AletDic = await DBConnection.raw(
+      `UPDATE configjson SET config = JSON_SET(config,'$.General.AlertDictionary.${'"Python.Suspicious.File.Found"'}.Log', ${
+        bool ? "true" : "false"
+      })`
+    );
+    console.log(
+      "AletDicAletDicAletDicAletDic",
+      AletDic,
+      "jhijbkjhjh",
+      `UPDATE configjson SET config = JSON_SET(config,'$.General.AlertDictionary.${'"Python.Suspicious.File.Found"'}.Log', ${
+        bool ? "true" : "false"
+      })`
+    );
+
+    return true;
+  } catch (error) {
+    console.log("Error in GetSortDate : ", error);
+  }
+}
+module.exports = { GetAlertsFile, UpdateAlertFile, GetSortDate };

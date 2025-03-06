@@ -52,8 +52,8 @@ async function GetAlertFileData(req, res, next) {
         x.SimpleName = data?.AletDic[x?.Artifact?.trim()]?.Name ?? x?.Artifact;
         x.Description = data?.AletDic[x?.Artifact?.trim()]?.Description;
         x.Show = data?.AletDic[x?.Artifact?.trim()]?.Show;
+        return data?.AletDic[x?.Artifact?.trim()]?.Show ?? true;
       }
-      return data?.AletDic[x?.Artifact?.trim()]?.Show ?? true;
     });
     data.Artifact = Artifact;
     data.PieData = Item;
@@ -82,7 +82,21 @@ async function UpdateAlertFileData(req, res, next) {
   }
 }
 
-module.exports = {
-  GetAlertFileData,
-  UpdateAlertFileData,
-};
+async function UpdateAlertState(req, res, next) {
+  try {
+    console.log("hello update ", req.body);
+    const { bool } = req.body;
+    const up = await GetSortDate(bool);
+
+    if (up) {
+      res.send(up);
+    } else {
+      res.status(404).send("No Such alert");
+    }
+  } catch (err) {
+    console.log("Error In Update alert file ", err);
+    res.status(404).send({ msg: "Error in update", error: err });
+  }
+}
+
+module.exports = { UpdateAlertState, GetAlertFileData, UpdateAlertFileData };
