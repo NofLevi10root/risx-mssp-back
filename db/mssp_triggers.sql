@@ -1,4 +1,12 @@
 
+DROP TRIGGER IF EXISTS UpdateDateAlert$$
+CREATE TRIGGER UpdateDateAlert before UPDATE ON alert_client_config
+FOR EACH ROW
+BEGIN
+	SET new.lastupdated = NOW();
+END$$
+
+
 DROP TRIGGER IF EXISTS ToolsChange$$
 CREATE TRIGGER ToolsChange BEFORE UPDATE ON tools
 FOR EACH ROW
