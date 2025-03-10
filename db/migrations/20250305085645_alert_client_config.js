@@ -7,7 +7,6 @@ exports.up = function (knex) {
     table.string("clientid", 300).notNullable().unique().primary();
     table.string("fqdn", 300)
     table.json("config");
-    table.timestamp("lastupdated");
   });
 };
 

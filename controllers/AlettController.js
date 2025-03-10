@@ -2,6 +2,7 @@ const {
   GetAlertsFile,
   UpdateAlertFile,
   GetSortDate,
+  GetAlertsConfigMod,
 } = require("../models/AlertModal");
 const { get_full_config_model } = require("../models/ConfigModels");
 
@@ -99,4 +100,21 @@ async function UpdateAlertState(req, res, next) {
   }
 }
 
-module.exports = { UpdateAlertState, GetAlertFileData, UpdateAlertFileData };
+async function GetAlertsConfig(req, res, next) {
+  try {
+    console.log("hello update ", req.body);
+    const { id } = req.body;
+    const responseMod = await GetAlertsConfigMod(id);
+    res.send(responseMod);
+  } catch (err) {
+    console.log("Error In Update alert file ", err);
+    res.status(404).send({ msg: "Error in update", error: err });
+  }
+}
+
+module.exports = {
+  GetAlertsConfig,
+  UpdateAlertState,
+  GetAlertFileData,
+  UpdateAlertFileData,
+};

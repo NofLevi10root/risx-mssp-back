@@ -119,4 +119,31 @@ async function GetSortDate(bool) {
     console.log("Error in GetSortDate : ", error);
   }
 }
-module.exports = { GetAlertsFile, UpdateAlertFile, GetSortDate };
+
+async function GetAlertsConfigMod(id) {
+  try {
+    const [AletDic] = await DBConnection.raw(
+      'SELECT clientid as value,fqdn as preview_name FROM mssp.alert_client_config where not clientid = "all_monitor"'
+    );
+    console.log("AletDicAletDicAletDicAletDicAletDicAletDic", AletDic);
+    const query = id ? `and id = "${id}"` : "";
+    const [[AletDic1]] = await DBConnection.raw(
+      `SELECT * FROM mssp.alert_client_config where not clientid = "all_monitor"  ${query} limit 1`
+    );
+    console.log(
+      "AletDic1AletDic1AletDic1AletDic1AletDic1AletDic1AletDic1",
+      AletDic1
+    );
+
+    return { Menu: AletDic, AlertConfig: AletDic1 };
+  } catch (error) {
+    console.log("Error in GetSortDate : ", error);
+  }
+}
+
+module.exports = {
+  GetAlertsConfigMod,
+  GetAlertsFile,
+  UpdateAlertFile,
+  GetSortDate,
+};
