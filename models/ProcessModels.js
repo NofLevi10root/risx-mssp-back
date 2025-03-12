@@ -14,7 +14,7 @@ const DBConnection = require("../db.js");
 const { log } = require("console");
 const readline = require("readline");
 
-async function RunAlertHelperModal() {
+async function RunAlertHelperModal(status) {
   console.log("----- RunAlertHelperModal ------------");
 
   const SCRIPTS_FOLDER = process.env.PYTHON_SCRIPTS_RELATIVE_PATH;
@@ -30,8 +30,7 @@ async function RunAlertHelperModal() {
   );
 
   const command = `
-python ${PYTHON_EXECUTABLE_RELATVE}
-`;
+python ${PYTHON_EXECUTABLE_RELATVE} ${status == "modification" ? "-m" : "-u"}`;
   console.log("command interval = ", command);
 
   try {
@@ -547,7 +546,8 @@ module.exports = {
   active_manual_process_model,
   active_interval_process_model,
   search_And_Kill_Process,
-  get_all_python_processes,RunAlertHelperModal
+  get_all_python_processes,
+  RunAlertHelperModal,
 };
 
 // const command2 = `

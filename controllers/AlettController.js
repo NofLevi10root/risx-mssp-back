@@ -107,6 +107,9 @@ async function GetAlertsConfig(req, res, next) {
   try {
     console.log("hello update ", req.body);
     const { id } = req.body;
+    const x = await RunAlertHelperModal("update");
+    console.log("Updated");
+
     const responseMod = await GetAlertsConfigMod(id);
     res.send(responseMod);
   } catch (err) {
@@ -121,7 +124,7 @@ async function UpdateAlertConfig(req, res, next) {
     const { id, config } = req.body;
     const responseMod = await UpdateAlertConfigMod(id, config);
     if (responseMod) {
-      const x = await RunAlertHelperModal();
+      const x = await RunAlertHelperModal("modification");
     }
     res.send({ bool: responseMod });
   } catch (err) {
