@@ -14,6 +14,60 @@ const DBConnection = require("../db.js");
 const { log } = require("console");
 const readline = require("readline");
 
+async function RunAlertHelperModal() {
+  console.log("----- RunAlertHelperModal ------------");
+
+  const SCRIPTS_FOLDER = process.env.PYTHON_SCRIPTS_RELATIVE_PATH;
+  const PYTHON_EXECUTABLE = process.env.PYTHON_EXECUTABLE;
+  const PYTHON_EXECUTABLE_RELATVE = path.resolve(
+    __dirname,
+    "..",
+    "..",
+    SCRIPTS_FOLDER,
+    "helpers",
+    "alerts",
+    "main.py"
+  );
+
+  const command = `
+python ${PYTHON_EXECUTABLE_RELATVE}
+`;
+  console.log("command interval = ", command);
+
+  try {
+    return new Promise((resolve, reject) => {
+      const process = exec(
+        command,
+        { shell: "/bin/bash" },
+        (error, stdout, stderr) => {
+          console.log("RunAlertHelperModal - Promise");
+
+          if (error) {
+            console.log(
+              "RunAlertHelperModal - return new Promise error",
+              error
+            );
+            // console.error(`Error: ${error.message}`);
+            // console.log(`stderr: ${stderr}`);
+            reject(false); // Reject with false indicating failure
+            return error;
+          }
+
+          resolve(true); // Resolve with true indicating success
+        }
+      );
+
+      // Start interval loop
+      process.stdout.on("data", (data) => {
+        resolve(true);
+      });
+    });
+  } catch (error) {
+    console.error("Error checking process status:", error);
+    return false;
+  }
+}
+
 async function check_main_process_status_model() {
   const file_name = process.env.PYTHON_INTERVAL;
   console.log("check_main_process_status_model - file_name", file_name);
@@ -493,7 +547,7 @@ module.exports = {
   active_manual_process_model,
   active_interval_process_model,
   search_And_Kill_Process,
-  get_all_python_processes,
+  get_all_python_processes,RunAlertHelperModal
 };
 
 // const command2 = `

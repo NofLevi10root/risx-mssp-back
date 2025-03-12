@@ -123,12 +123,12 @@ async function GetSortDate(bool) {
 async function GetAlertsConfigMod(id) {
   try {
     const [AletDic] = await DBConnection.raw(
-      'SELECT clientid as value,fqdn as preview_name FROM mssp.alert_client_config where not clientid = "all_monitor"'
+      'SELECT label as value,label as preview_name FROM alert_client_config where not label = "all_monitor"'
     );
     console.log("AletDicAletDicAletDicAletDicAletDicAletDic", AletDic);
-    const query = id ? `and id = "${id}"` : "";
+    const query = id ? `and label = "${id}"` : "";
     const [[AletDic1]] = await DBConnection.raw(
-      `SELECT * FROM mssp.alert_client_config where not clientid = "all_monitor"  ${query} limit 1`
+      `SELECT * FROM mssp.alert_client_config where not label = "all_monitor"  ${query} limit 1`
     );
     console.log(
       "AletDic1AletDic1AletDic1AletDic1AletDic1AletDic1AletDic1",
@@ -137,11 +137,42 @@ async function GetAlertsConfigMod(id) {
 
     return { Menu: AletDic, AlertConfig: AletDic1 };
   } catch (error) {
-    console.log("Error in GetSortDate : ", error);
+    console.log("Error in GetAlertsConfigMod : ", error);
+  }
+}
+
+async function UpdateAlertConfigMod(id, aConfig) {
+  try {
+    const stringified = JSON.stringify(aConfig);
+    const ResUpdate = await DBConnection("alert_client_config")
+      .update({
+        config: stringified,
+      })
+      .where("label", id);
+    console.log("AletDicAletDicAletDicAletDicAletDicAletDic", ResUpdate);
+
+    return ResUpdate;
+  } catch (error) {
+    console.log("Error in UpdateAlertConfigMod : ", error);
+  }
+}
+
+async function GetAllAlertsMonitorMod() {
+  try {
+    const [[AletDic]] = await DBConnection.raw(
+      'SELECT * FROM alert_client_config where  label = "all_monitor"'
+    );
+    console.log("AletDicAletDicAletDicAletDicAletDicAletDic", AletDic);
+
+    return AletDic;
+  } catch (error) {
+    console.log("Error in GetAlertsConfigMod : ", error);
   }
 }
 
 module.exports = {
+  GetAllAlertsMonitorMod,
+  UpdateAlertConfigMod,
   GetAlertsConfigMod,
   GetAlertsFile,
   UpdateAlertFile,

@@ -3,8 +3,11 @@ const {
   UpdateAlertFile,
   GetSortDate,
   GetAlertsConfigMod,
+  UpdateAlertConfigMod,
+  GetAllAlertsMonitorMod,
 } = require("../models/AlertModal");
 const { get_full_config_model } = require("../models/ConfigModels");
+const { RunAlertHelperModal } = require("../models/ProcessModels");
 
 async function GetAlertFileData(req, res, next) {
   try {
@@ -112,7 +115,36 @@ async function GetAlertsConfig(req, res, next) {
   }
 }
 
+async function UpdateAlertConfig(req, res, next) {
+  try {
+    console.log("hello update ", req.body);
+    const { id, config } = req.body;
+    const responseMod = await UpdateAlertConfigMod(id, config);
+    if (responseMod) {
+      const x = await RunAlertHelperModal();
+    }
+    res.send({ bool: responseMod });
+  } catch (err) {
+    console.log("Error In Update alert file ", err);
+    res.status(404).send({ msg: "Error in update", error: err });
+  }
+}
+
+async function GetAllAlertsMonitor(req, res, next) {
+  try {
+    console.log("hello GetAllAlertsMonitor ", req.body);
+
+    const responseMod = await GetAllAlertsMonitorMod();
+    res.send(responseMod);
+  } catch (err) {
+    console.log("Error In UGetAllAlertsMonitor ", err);
+    res.status(404).send({ msg: "Error in GetAllAlertsMonitor", error: err });
+  }
+}
+
 module.exports = {
+  GetAllAlertsMonitor,
+  UpdateAlertConfig,
   GetAlertsConfig,
   UpdateAlertState,
   GetAlertFileData,
