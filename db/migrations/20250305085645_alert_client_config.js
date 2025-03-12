@@ -4,8 +4,9 @@
  */
 exports.up = function (knex) {
   return knex.schema.createTable("alert_client_config", (table) => {
-    table.string("clientid", 300).notNullable().unique().primary();
-    table.string("fqdn", 300)
+    table.string("label", 300).notNullable().unique().primary();
+    table.json("client_id_population");
+    table.json("fqdn_population");
     table.json("config");
   });
 };
