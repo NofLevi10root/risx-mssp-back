@@ -58,6 +58,13 @@
         "AlertResultPerArtifactLimit": 200,
         "AlertSortDate": "2025-01-21T09:18:58.026Z",
         "SuspiciousFileSecondsCheck": 30
+      },
+      "AiManagement": {
+        "MODEL": "gpt-4o-mini-search-preview",
+        "MAX_TOKENS": 4096,
+        "PROMPT": "",
+        "PRODUCTS": [],
+        "MIN_CVSS_SCORE": 8
       }
     }
   },
@@ -84,6 +91,7 @@
       "Elastic": {
         "Ip": "localhost"
       },
+      "AiManagement": "APIKey",
       "LeakCheck": "APIKey",
       "Shodan": "APIKey",
       "Dehashed": "APIKey",
