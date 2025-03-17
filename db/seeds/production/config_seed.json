@@ -57,7 +57,8 @@
         "LastTimeStampInterval": 1,
         "AlertResultPerArtifactLimit": 200,
         "AlertSortDate": "2025-01-21T09:18:58.026Z",
-        "SuspiciousFileSecondsCheck": 30
+        "SuspiciousFileSecondsCheck": 30,
+        "FromTheFollowingTime": "2 days"
       },
       "AiManagement": {
         "MODEL": "gpt-4o-mini-search-preview",
