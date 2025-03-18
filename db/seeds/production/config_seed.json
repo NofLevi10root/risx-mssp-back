@@ -24,6 +24,108 @@
         "Show": false,
         "Name": "Client Stats",
         "Description": "To Much Data Ignore"
+      },
+      "Windows.ETW.DNS": {
+        "Log": false,
+        "Name": "none",
+        "Show": false,
+        "Description": "none"
+      },
+      "Windows.Detection.Usn": {
+        "Log": true,
+        "Name": "A Binary was executed",
+        "Show": true,
+        "Description": "Monitor for prefetch file modification"
+      },
+      "Windows.ETW.FileCreation": {
+        "Log": true,
+        "Name": "New file was downloaded",
+        "Show": true,
+        "Description": "Monitor for new downloads"
+      },
+      "Windows.Events.Trackaccount": {
+        "Log": true,
+        "Name": "ADMIN Account Usage",
+        "Show": true,
+        "Description": "Detect account usage by monitoring"
+      },
+      "Windows.ETW.WMIProcessCreate": {
+        "Log": true,
+        "Name": "Process Created Through WMI Event",
+        "Show": true,
+        "Description": "Lateral movement technique"
+      },
+      "Windows.Events.ServiceCreation": {
+        "Log": true,
+        "Name": "New service is installed",
+        "Show": true,
+        "Description": "Monitor new services installation"
+      },
+      "Custom.Windows.Download.Monitor": {
+        "Log": false,
+        "Name": "New File was downloaded",
+        "Show": false,
+        "Description": "Monitor for new downloads"
+      },
+      "Windows.Detection.Service.Upload": {
+        "Log": false,
+        "Name": "new service is installed",
+        "Show": false,
+        "Description": "Monitor new services installation"
+      },
+      "Sigma.Windows.Hayabusa.Monitoring": {
+        "Log": true,
+        "Name": "Sigma rules violation",
+        "Show": true,
+        "Description": "Monitor enviorment for High & Critical sigma rules"
+      },
+      "Exchange.Windows.Monitor.USBPlugIn": {
+        "Log": true,
+        "Name": "USB was plugged in",
+        "Show": true,
+        "Description": "A USB storage device was inserted"
+      },
+      "Custom.Windows.Events.Kerberoasting": {
+        "Log": true,
+        "Name": "Possible Kerberoasting attack",
+        "Show": true,
+        "Description": "Monitor all successful Kerberos TGS Ticket events for Service Accounts (SPN attribute) implemented with weak encryption"
+      },
+      "Windows.Detection.WMIProcessCreation": {
+        "Log": false,
+        "Name": "Client Stats",
+        "Show": false,
+        "Description": "To Much Data Ignore"
+      },
+      "Windows.Events.EventLogModifications": {
+        "Log": true,
+        "Name": "Possible event logs tampering",
+        "Show": true,
+        "Description": "Possible attempts to disabled event logs"
+      },
+      "Exchange.Windows.Events.SysmonRegistry": {
+        "Log": true,
+        "Name": "Suspicious registry changes",
+        "Show": true,
+        "Description": "monitoring for registry events of interest"
+      },
+      "Exchange.Windows.Detection.Network.Changed": {
+        "Log": true,
+        "Name": "New Network Profile Detected Or Removed",
+        "Show": true,
+        "Description": "A new network was added to the system or removed"
+      },
+      "Exchange.Windows.ETW.DetectProcessSpoofing": {
+        "Log": true,
+        "Name": "Possible Process Spoofing",
+        "Show": true,
+        "Description": "Detects Process parent spoofing such as SelectMyParent.exe or Cobalt Strike select PPID"
+      },
+      "Exchange.Windows.System.PowerShell.DetectResponder": {
+        "Log": false,
+        "Name": "Client Stats",
+        "Show": false,
+        "Description": "To Much Data Ignore"
       }
     },
     "AgentLinks": {
@@ -65,7 +167,8 @@
         "MAX_TOKENS": 4096,
         "PROMPT": "",
         "PRODUCTS": [],
-        "MIN_CVSS_SCORE": 8
+        "MIN_CVSS_SCORE": 8,
+        "AlertDate": "2025-01-21T09:18:58"
       }
     }
   },
