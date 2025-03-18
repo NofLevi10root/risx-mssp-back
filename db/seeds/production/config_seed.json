@@ -196,6 +196,7 @@
         "Ip": "localhost"
       },
       "AiManagement": "APIKey",
+      "NVD":"APIKey",
       "LeakCheck": "APIKey",
       "Shodan": "APIKey",
       "Dehashed": "APIKey",
