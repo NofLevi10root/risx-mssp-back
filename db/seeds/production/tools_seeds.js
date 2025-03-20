@@ -464,7 +464,7 @@ exports.seed = async function (knex) {
     // },
     {
       tool_id: 2001018,
-      Tool_name: "AI Vulnerability Management",
+      Tool_name: "AIVulnerability",
       BoxType: "Tools_b",
       headline: "ASM",
       isActive: false,

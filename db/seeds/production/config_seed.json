@@ -126,6 +126,12 @@
         "Name": "Client Stats",
         "Show": false,
         "Description": "To Much Data Ignore"
+      },
+      "Custom.Windows.Detection.Usn.malwareTest": {
+        "Log": true,
+        "Name": "Timestomping",
+        "Show": true,
+        "Description": "Show Files That experienced Timestomping"
       }
     },
     "AgentLinks": {
@@ -196,7 +202,7 @@
         "Ip": "localhost"
       },
       "AiManagement": "APIKey",
-      "NVD":"APIKey",
+      "NVD": "APIKey",
       "LeakCheck": "APIKey",
       "Shodan": "APIKey",
       "Dehashed": "APIKey",
@@ -207,6 +213,14 @@
   },
 
   "Modules": {
+    "AIVulnerability": {
+      "id": "2001018",
+      "Enable": 0,
+      "Arguments": {},
+      "ExpireDate": "0",
+      "ModuleName": "AIVulnerability",
+      "LastRunDate": "2024-06-02 10:15:17"
+    },
     "LeakCheck": {
       "id": "2001013",
       "Enable": 0,
