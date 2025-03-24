@@ -151,6 +151,14 @@ async function enable_disable_artifact_model(
 async function get_all_Modules_model() {
   try {
     const Modules = await DBConnection("tools").select("*");
+    const [[tools]] = await DBConnection.raw(
+      'SELECT JSON_EXTRACT(config, "$.Modules") as a FROM configjson'
+    );
+    for (let i = 0; i < Modules.length; i++) {
+      const too = Modules[i];
+      too.isActive = tools?.a?.[too?.Tool_name]?.Enable;
+    }
+
     if (Modules) return { Modules };
   } catch (err) {
     console.log(err);
@@ -261,7 +269,17 @@ async function all_Artifacts_id_and_trashold() {
 async function get_all_velociraptor_artifacts_model() {
   try {
     const allArtifacts = await DBConnection("artifacts").select("*");
-    console.log("allArtifacts allArtifacts allArtifacts allArtifacts allArtifacts allArtifacts allArtifacts",allArtifacts)
+    const [[tools]] = await DBConnection.raw(
+      'SELECT JSON_EXTRACT(config, "$.Modules.Velociraptor.SubModules") as a FROM configjson'
+    );
+    for (let i = 0; i < allArtifacts.length; i++) {
+      const too = allArtifacts[i];
+      too.isActive = tools?.a?.[too?.Tool_name]?.Enable;
+    }
+    console.log(
+      allArtifacts,
+      "allArtifacts allArtifacts allArtifacts allArtifacts allArtifacts allArtifacts allArtifacts"
+    );
     if (allArtifacts) return { allArtifacts };
   } catch (err) {
     console.log(err);
