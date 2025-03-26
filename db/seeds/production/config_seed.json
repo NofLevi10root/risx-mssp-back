@@ -165,8 +165,7 @@
         "LastTimeStampInterval": 1,
         "AlertResultPerArtifactLimit": 200,
         "AlertSortDate": "2025-01-21T09:18:58.026Z",
-        "SuspiciousFileSecondsCheck": 30,
-        "FromTheFollowingTime": "2 days"
+        "SuspiciousFileSecondsCheck": 30
       },
       "AiManagement": {
         "MODEL": "gpt-4o-mini-search-preview",
@@ -174,7 +173,8 @@
         "PROMPT": "",
         "PRODUCTS": [],
         "MIN_CVSS_SCORE": 8,
-        "AlertDate": "2025-01-21T09:18:58"
+        "AlertDate": "2025-01-21T09:18:58",
+        "FromTheFollowingTime": "30"
       }
     }
   },
@@ -184,13 +184,17 @@
         "AssetString": "Example@Example",
         "AssetParentId": "",
         "AssetEnable": 0,
-        "AssetType": ["IP Address"],
-        "AssetModules": ["Velociraptor", "Nuclei"],
+        "AssetType": [
+          "IP Address"
+        ],
+        "AssetModules": [
+          "Velociraptor",
+          "Nuclei"
+        ],
         "LastRunDate": "2024-06-02 10:15:17"
       }
     }
   },
-
   "ClientData": {
     "API": {
       "Timesketch": {
@@ -201,7 +205,6 @@
       "Elastic": {
         "Ip": "localhost"
       },
-      "AiManagement": "APIKey",
       "NVD": "APIKey",
       "LeakCheck": "APIKey",
       "Shodan": "APIKey",
@@ -211,7 +214,6 @@
       "OpenCTI": "APIKey"
     }
   },
-
   "Modules": {
     "AIVulnerability": {
       "id": "2001018",
@@ -237,13 +239,11 @@
       "ExpireDate": "0",
       "Arguments": {}
     },
-
     "Velociraptor": {
       "id": "2000000",
       "ModuleName": "Velociraptor",
       "LastRunDate": "2024-06-02 10:15:17",
       "ExpireDate": "0",
-
       "SubModules": {
         "BestPractice": {
           "Enable": 0,
@@ -260,7 +260,6 @@
               "MaxBytesUploaded": "10000"
             },
             "Modules": {
-              "DetectRaptor.Server.StartHunts": {},
               "Generic.Forensic.SQLiteHunter": {},
               "Windows.Analysis.EvidenceOfDownload": {},
               "Windows.Analysis.EvidenceOfExecution": {},
@@ -296,7 +295,10 @@
               "DetectRaptor.Windows.Detection.Powershell.PSReadline": {},
               "DetectRaptor.Windows.Detection.Webhistory": {},
               "DetectRaptor.Windows.Detection.YaraProcessWin": {},
-              "DetectRaptor.Windows.Detection.ZoneIdentifier": {}
+              "DetectRaptor.Windows.Detection.ZoneIdentifier": {},
+              "Windows.Registry.Hunter": {},
+              "Windows.System.DNSCache": {},
+              "Windows.Detection.Amcache": {}
             }
           }
         },
@@ -361,25 +363,6 @@
               "NTFS_CACHE_TIME": "1000000"
             }
           }
-        },
-        "Kape": {
-          "id": "",
-          "ModuleName": "Kape",
-          "Enable": 0,
-          "ExpireDate": "60",
-          "TimeInterval": "5",
-          "LastRunDate": "2024-06-02 10:15:17",
-          "ArtifactTimeOutInMinutes": 7200,
-          "Arguments": {
-            "ArtifactResourceLimit": {
-              "CPULimitPercent": "60",
-              "MaxExecutionTimeInSeconds": "3600",
-              "MaxBytesUploaded": "10000"
-            },
-            "ArtifactParameters": {
-              "KapeCollection": "KapeTriage"
-            }
-          }
         }
       }
     },
@@ -394,6 +377,22 @@
         "NucleiWorkflow": "",
         "NucleiExcludeSeverity": [],
         "NucleiArgumentFlags": []
+      }
+    },
+    "Kape": {
+      "id": "",
+      "ModuleName": "Kape",
+      "Enable": 0,
+      "ExpireDate": "60",
+      "TimeInterval": "5",
+      "LastRunDate": "2024-06-02 10:15:17",
+      "Arguments": {
+        "SketchName": "Timelines",
+        "Analyzers": [],
+        "CPUThrottling": "75",
+        "MemoryThrottling": "75",
+        "ArtifactTimeOutInMinutes": 7200,
+        "KapeCollection": "KapeTriage"
       }
     },
     "TimeSketch": {
