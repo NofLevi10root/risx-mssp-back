@@ -21,6 +21,8 @@ async function get_log_model(logName, fileName) {
     "log_dashboard",
     "log_resource_usage",
     "log_collector",
+    "log_collector_import",
+    "log_AiManagement",
   ];
 
   try {
