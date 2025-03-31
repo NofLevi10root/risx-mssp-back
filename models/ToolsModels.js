@@ -156,7 +156,7 @@ async function get_all_Modules_model() {
     );
     for (let i = 0; i < Modules.length; i++) {
       const too = Modules[i];
-      too.isActive = tools?.a?.[too?.Tool_name]?.Enable;
+      too.isActive = tools?.a?.[too?.Tool_name]?.Enable ?? false;
     }
 
     if (Modules) return { Modules };
@@ -274,7 +274,7 @@ async function get_all_velociraptor_artifacts_model() {
     );
     for (let i = 0; i < allArtifacts.length; i++) {
       const too = allArtifacts[i];
-      too.isActive = tools?.a?.[too?.Tool_name]?.Enable;
+      too.isActive = tools?.a?.[too?.Toolname]?.Enable ?? false;
     }
     console.log(
       allArtifacts,
@@ -811,7 +811,42 @@ async function change_positions(
   }
 }
 
+async function GetAllTNA() {
+  try {
+    const [to] = await DBConnection.raw(
+      'SELECT Tool_name as name,JSON_EXTRACT(arguments, "$.tags") as tags FROM tools'
+    );
+    const [Art] = await DBConnection.raw(
+      'SELECT Toolname as name,JSON_EXTRACT(arguments, "$.tags") as tags FROM artifacts'
+    );
+    return [...Art, ...to];
+  } catch (err) {
+    console.log(err);
+    return err;
+  }
+}
+
+async function UpdateAllTNA(list) {
+  try {
+    console.log(`update tools set isActive = Tool_Name in ("${list}")`);
+    console.log(`update artifacts set isActive = Toolname in ("${list}")`);
+
+    const [to] = await DBConnection.raw(
+      `update tools set isActive = Tool_Name in ("${list}")`
+    );
+    const [Art] = await DBConnection.raw(
+      `update artifacts set isActive = Toolname in ("${list}")`
+    );
+    return true;
+  } catch (err) {
+    console.log(err);
+    return false;
+  }
+}
+
 module.exports = {
+  UpdateAllTNA,
+  GetAllTNA,
   change_positions,
   make_JSON_Artifact_to_velociraptor,
   get_Date_and_hour_string,

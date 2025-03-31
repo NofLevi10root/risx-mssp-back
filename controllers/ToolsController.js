@@ -22,6 +22,8 @@ const {
   enable_disable_module_model,
   show_in_ui_module_model,
   enable_disable_artifact_model,
+  GetAllTNA,
+  UpdateAllTNA,
 } = require("../models/ToolsModels");
 
 const {
@@ -298,8 +300,29 @@ async function active_modules(req, res, next) {
   }
 }
 
+async function TagSelection(req, res, next) {
+  try {
+    const FilteredArr = [];
+    const TNA = await GetAllTNA();
+    console.log(TNA, "TNATNATNATNATNA");
+    TNA.forEach((x) => {
+      if (x?.tags?.includes(req.body.TagName)) {
+        FilteredArr.push(x?.name);
+      }
+    });
+    console.log(FilteredArr, "ssssssssssssssssss");
+    const final = await UpdateAllTNA(FilteredArr.join('","'));
+    if (final) {
+      res.send("All Good");
+    }
+  } catch (err) {
+    console.log(err);
+  }
+}
+
 module.exports = {
   Get_All_Tools,
+  TagSelection,
   active_velocirapto_artifact,
   get_all_velociraptor_artifacts,
   active_modules,
