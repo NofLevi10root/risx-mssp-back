@@ -5,6 +5,7 @@ const {
   GetAlertsConfigMod,
   UpdateAlertConfigMod,
   GetAllAlertsMonitorMod,
+  GetSortDateBool,
 } = require("../models/AlertModal");
 const { get_full_config_model } = require("../models/ConfigModels");
 const { RunAlertHelperModal } = require("../models/ProcessModels");
@@ -90,7 +91,7 @@ async function UpdateAlertState(req, res, next) {
   try {
     console.log("hello update ", req.body);
     const { bool } = req.body;
-    const up = await GetSortDate(bool);
+    const up = await GetSortDateBool(bool);
 
     if (up) {
       res.send(up);

@@ -94,7 +94,7 @@ async function GetSortDate() {
   }
 }
 
-async function GetSortDate(bool) {
+async function GetSortDateBool(bool) {
   try {
     const quer = `SELECT JSON_EXTRACT(config,'$.General.AlertDictionary.${'"Python.Suspicious.File.Found"'}.Log') as a from configjson`;
     const [[AletDic2]] = await DBConnection.raw(quer);
@@ -176,5 +176,5 @@ module.exports = {
   GetAlertsConfigMod,
   GetAlertsFile,
   UpdateAlertFile,
-  GetSortDate,
+  GetSortDate,GetSortDateBool
 };
