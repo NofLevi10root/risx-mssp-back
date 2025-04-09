@@ -494,7 +494,7 @@ exports.seed = async function (knex) {
       headline: "Kape Forensics",
       isActive: false,
       ShowInUi: false,
-      logoAddress_1: "./Logos/kapeLogo.png.svg",
+      logoAddress_1: "./Logos/kapeLogo.png",
       logoAddress_2: "",
       iconAddress: "./icons/General-icons-e.svg",
       description_short: "Create KapeFiles",
