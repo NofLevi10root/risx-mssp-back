@@ -166,15 +166,6 @@
         "AlertResultPerArtifactLimit": 200,
         "AlertSortDate": "2025-01-21T09:18:58.026Z",
         "SuspiciousFileSecondsCheck": 30
-      },
-      "AiManagement": {
-        "MODEL": "gpt-4o-mini-search-preview",
-        "MAX_TOKENS": 4096,
-        "PROMPT": "",
-        "PRODUCTS": [],
-        "MIN_CVSS_SCORE": 8,
-        "AlertDate": "2025-01-21T09:18:58",
-        "FromTheFollowingTime": "30"
       }
     }
   },
@@ -218,7 +209,20 @@
     "AIVulnerability": {
       "id": "2001018",
       "Enable": 0,
-      "Arguments": {},
+      "Arguments": {
+        "MODEL": "gpt-4o-mini-search-preview",
+        "MAX_TOKENS": 4096,
+        "PROMPT": "",
+        "PRODUCTS": [],
+        "MIN_CVSS_SCORE": 8,
+        "AlertDate": "2025-01-21T09:18:58",
+        "FromTheFollowingTime": "30",
+        "AutoProductsDetection": true,
+        "TimeForProductsDetectionInSeconds": "120",
+        "RunNuclei": true,
+        "RunYara": true,
+        "RunSigma": true
+      },
       "ExpireDate": "0",
       "ModuleName": "AIVulnerability",
       "LastRunDate": "2024-06-02 10:15:17"

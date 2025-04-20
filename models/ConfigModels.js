@@ -6,7 +6,7 @@ const config_table = "configjson";
 const fs = require("fs");
 const fs_promises = require("fs").promises; // Import 'fs' with Promise-based API
 const path = require("path");
-
+const { spawn } = require("child_process");
 const config_column = "config";
 
 async function put_full_config_model(config) {
@@ -257,7 +257,99 @@ async function GetSpecificCollectorModal(command) {
   }
 }
 
+async function GetAgentLinks() {
+  try {
+    const [[the_config_json]] = await DBConnection.raw(
+      'SELECT JSON_EXTRACT(config,"$.General.AgentLinks.Linux") as a FROM mssp.configjson'
+    );
+    console.log(
+      the_config_json.a,
+      "the_config_json the_config_json the_config_json the_config_json"
+    );
+
+    return the_config_json.a;
+  } catch (err) {
+    const error_m = {
+      error: "Error find GetAgentLinks",
+      DiscrError: [err],
+    };
+    console.error("Error find GetAgentLinks:", err);
+    return error_m;
+  }
+}
+
+async function StartExecProcessVeloDisk(cmd1, cmd2) {
+  try {
+    const cmd1Run = () => {
+      return new Promise((resolve, reject) => {
+        try {
+          exec(cmd1, { shell: "/bin/bash" }, (error, stdout, stderr) => {
+            if (error) {
+              console.error(`Error executing command 1: ${error.message}`);
+              // reject(false);
+              // return;
+            }
+
+            if (stderr) {
+              console.error(`Error: ${stderr}`);
+              // reject(false);
+              resolve(false);
+              return;
+            }
+            console.log(stdout);
+
+            resolve(true);
+          });
+        } catch (error) {
+          console.log("Error in exec GetSpecificCollectorModal ", error);
+        }
+      });
+    };
+    const RunCmd1 = await cmd1Run();
+    console.log("asdasdasdasdasdasdasdasdasdasdasdasdsa run command 1 end");
+
+    return true;
+  } catch (err) {
+    const error_m = {
+      error: "Error find StartExecProcessVeloDisk",
+      DiscrError: [err],
+    };
+    console.error("Error find StartExecProcessVeloDisk:", err);
+    return error_m;
+  }
+}
+
+async function BringSpecificConfigModal(name, bool) {
+  try {
+    if (bool) {
+      const [[the_config_json]] = await DBConnection.raw(
+        `SELECT JSON_EXTRACT(config,'$.Modules.Velociraptor.SubModules.${name}') as a FROM mssp.configjson`
+      );
+      return the_config_json.a;
+    }
+    const [[the_config_json]] = await DBConnection.raw(
+      `SELECT JSON_EXTRACT(config,"$.Modules.${name}") as a FROM mssp.configjson`
+    );
+    console.log(
+      the_config_json.a,
+      "the_config_json the_config_json the_config_json the_config_json"
+    );
+
+    return the_config_json.a;
+  } catch (err) {
+    const error_m = {
+      error: "Error find BringSpecificConfigModal",
+      DiscrError: [err],
+    };
+    console.error("Error find BringSpecificConfigModal:", err);
+    return error_m;
+  }
+}
+
 module.exports = {
+  BringSpecificConfigModal,
+  StartExecProcessVeloDisk,
+  GetAgentLinks,
   GetAllVeloConfigSideBarModel,
   GetSpecificCollectorModal,
   AddConfigVeloModel,

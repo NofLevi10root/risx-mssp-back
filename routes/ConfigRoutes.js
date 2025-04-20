@@ -25,6 +25,10 @@ router.post("/SaveConfigVelo", ConfigController.SaveConfigVelo);
 router.post("/InsertConfigVelo", ConfigController.InsertConfigVelo);
 router.get("/GetAllVeloConfigSideBar", ConfigController.GetAllVeloConfigSideBar);
 router.post("/GetSpecificCollector", ConfigController.GetSpecificCollector);
+router.post("/CreateStorageVeloDiskAgent", ConfigController.CreateStorageVeloDiskAgent);
+router.post("/BringSpecificConfig", ConfigController.BringSpecificConfig);
+
+
 
 
 module.exports = router;

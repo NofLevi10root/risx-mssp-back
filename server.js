@@ -8,6 +8,7 @@ const bodyParser = require("body-parser"); /// seco
 const routes = require("./routes");
 const dotenv = require("dotenv").config();
 const app = express();
+console.log("Server Version is 0.8.8");
 
 const front_ip = process.env.FRONT_IP || "";
 const front_port = process.env.FRONT_PORT || 3003;

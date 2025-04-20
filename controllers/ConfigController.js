@@ -9,6 +9,9 @@ const {
   AddConfigVeloModel,
   GetAllVeloConfigSideBarModel,
   GetSpecificCollectorModal,
+  GetAgentLinks,
+  StartExecProcessVeloDisk,
+  BringSpecificConfigModal,
 } = require("../models/ConfigModels");
 const DBConnection = require("../db.js");
 const fs = require("fs"); // Import 'fs' with Promise-based API
@@ -375,7 +378,55 @@ async function GetSpecificCollector(req, res, next) {
     console.log("Error in  GetSpecificCollector", error);
   }
 }
+
+async function CreateStorageVeloDiskAgent(req, res, next) {
+  try {
+    console.log(req.body);
+    const { StoragePath, Hostname, ChosenOs } = req.body;
+    let pathToVeloAgent = "";
+    let user = os.userInfo().username;
+    console.log("user", user);
+    if (user == "node") {
+      pathToVeloAgent = "velociraptor/velociraptor";
+    } else {
+      pathToVeloAgent =
+        "~/setup_platform/workdir/velociraptor/velociraptor/velociraptor";
+    }
+
+    console.log(
+      pathToVeloAgent,
+      "pathToVeloAgentpathToVeloAgentpathToVeloAgent"
+    );
+
+    const command1 = `${pathToVeloAgent} deaddisk --add_${ChosenOs.toLowerCase()}_disk ${StoragePath} image-${Hostname}.yaml -v`;
+    const command2 = `${pathToVeloAgent} deaddisk --remap image-${Hostname}.yaml --config client.config.yaml client -v --config.client-writeback-linux=remapping.writeback-${Hostname}.yaml`;
+
+    const RunCmd1_2 = await StartExecProcessVeloDisk(command1, command2);
+    console.log("command1", command1);
+    console.log("command2", command2);
+  } catch (error) {
+    console.log("Error in  GetSpecificCollector", error);
+  }
+}
+
+async function BringSpecificConfig(req, res, next) {
+  try {
+    console.log("Start BringSpecificConfig");
+
+    console.log(req.body);
+    const { name, artifactOrTool, id } = req.body;
+    const rr = await BringSpecificConfigModal(name, artifactOrTool);
+    console.log(rr, "rrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr");
+
+    res.send(rr);
+  } catch (error) {
+    console.log("Error in  BringSpecificConfig", error);
+  }
+}
+
 module.exports = {
+  BringSpecificConfig,
+  CreateStorageVeloDiskAgent,
   GetAllVeloConfigSideBar,
   GetSpecificCollector,
   InsertConfigVelo,
