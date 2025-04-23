@@ -260,7 +260,7 @@ async function GetSpecificCollectorModal(command) {
 async function GetAgentLinks() {
   try {
     const [[the_config_json]] = await DBConnection.raw(
-      'SELECT JSON_EXTRACT(config,"$.General.AgentLinks.Linux") as a FROM mssp.configjson'
+      'SELECT JSON_EXTRACT(config,"$.General.AgentLinks.Linux") as a FROM configjson'
     );
     console.log(
       the_config_json.a,
@@ -323,12 +323,12 @@ async function BringSpecificConfigModal(name, bool) {
   try {
     if (bool) {
       const [[the_config_json]] = await DBConnection.raw(
-        `SELECT JSON_EXTRACT(config,'$.Modules.Velociraptor.SubModules.${name}') as a FROM mssp.configjson`
+        `SELECT JSON_EXTRACT(config,'$.Modules.Velociraptor.SubModules.${name}') as a FROM configjson`
       );
       return the_config_json.a;
     }
     const [[the_config_json]] = await DBConnection.raw(
-      `SELECT JSON_EXTRACT(config,"$.Modules.${name}") as a FROM mssp.configjson`
+      `SELECT JSON_EXTRACT(config,"$.Modules.${name}") as a FROM configjson`
     );
     console.log(
       the_config_json.a,
@@ -346,7 +346,39 @@ async function BringSpecificConfigModal(name, bool) {
   }
 }
 
+async function SaveSpecificConfigModal(name, bool, cho) {
+  try {
+    if (bool) {
+      const the_config_json = await DBConnection.raw(
+        `UPDATE configjson SET config = JSON_SET(config,'$.Modules.Velociraptor.SubModules.${name}',cast( '${JSON.stringify(
+          cho
+        )}' as json)),lastupdated = now()`
+      );
+      return true;
+    }
+    const the_config_json = await DBConnection.raw(
+      `UPDATE configjson SET config = JSON_SET(config,'$.Modules.${name}',cast( '${JSON.stringify(
+        cho
+      )}' as json)),lastupdated = now()`
+    );
+    console.log(
+      the_config_json.a,
+      "the_config_json the_config_json the_config_json the_config_json"
+    );
+
+    return true;
+  } catch (err) {
+    const error_m = {
+      error: "Error find SaveSpecificConfig",
+      DiscrError: [err],
+    };
+    console.error("Error find SaveSpecificConfig:", err);
+    return false;
+  }
+}
+
 module.exports = {
+  SaveSpecificConfigModal,
   BringSpecificConfigModal,
   StartExecProcessVeloDisk,
   GetAgentLinks,

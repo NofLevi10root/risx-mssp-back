@@ -12,6 +12,7 @@ const {
   GetAgentLinks,
   StartExecProcessVeloDisk,
   BringSpecificConfigModal,
+  SaveSpecificConfigModal,
 } = require("../models/ConfigModels");
 const DBConnection = require("../db.js");
 const fs = require("fs"); // Import 'fs' with Promise-based API
@@ -424,7 +425,23 @@ async function BringSpecificConfig(req, res, next) {
   }
 }
 
+async function SaveSpecificConfig(req, res, next) {
+  try {
+    console.log("Start SaveSpecificConfig");
+
+    console.log(req.body);
+    const { name, artifactOrTool, cho } = req.body;
+    const rr = await SaveSpecificConfigModal(name, artifactOrTool, cho);
+    console.log(rr, "rrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr");
+
+    res.send(rr);
+  } catch (error) {
+    console.log("Error in  SaveSpecificConfig", error);
+  }
+}
+
 module.exports = {
+  SaveSpecificConfig,
   BringSpecificConfig,
   CreateStorageVeloDiskAgent,
   GetAllVeloConfigSideBar,

@@ -217,11 +217,11 @@
         "MIN_CVSS_SCORE": 8,
         "AlertDate": "2025-01-21T09:18:58",
         "FromTheFollowingTime": "30",
-        "AutoProductsDetection": true,
+        "AutoProductsDetection": "false",
         "TimeForProductsDetectionInSeconds": "120",
-        "RunNuclei": true,
-        "RunYara": true,
-        "RunSigma": true
+        "RunNuclei": "true",
+        "RunYara": "true",
+        "RunSigma": "true"
       },
       "ExpireDate": "0",
       "ModuleName": "AIVulnerability",

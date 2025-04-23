@@ -27,6 +27,7 @@ router.get("/GetAllVeloConfigSideBar", ConfigController.GetAllVeloConfigSideBar)
 router.post("/GetSpecificCollector", ConfigController.GetSpecificCollector);
 router.post("/CreateStorageVeloDiskAgent", ConfigController.CreateStorageVeloDiskAgent);
 router.post("/BringSpecificConfig", ConfigController.BringSpecificConfig);
+router.post("/SaveSpecificConfig", ConfigController.SaveSpecificConfig);
 
 
 
