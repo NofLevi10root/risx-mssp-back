@@ -23,6 +23,7 @@ async function get_log_model(logName, fileName) {
     "log_collector",
     "log_collector_import",
     "log_AiManagement",
+    "log_Prompt",
   ];
 
   try {
@@ -79,7 +80,7 @@ async function get_log_model(logName, fileName) {
   }
 }
 
-async function DeleteLogModal(logName,fileName) {
+async function DeleteLogModal(logName, fileName) {
   try {
     console.log("Enter DeleteLOg Modal");
     let log_file_name = fileName;
@@ -97,6 +98,7 @@ async function DeleteLogModal(logName,fileName) {
       "log_collector",
       "log_collector_import",
       "log_AiManagement",
+      "log_Prompt",
     ];
 
     if (risx_mssp_python_script_logs.includes(logName)) {
@@ -142,11 +144,14 @@ async function DeleteLogModal(logName,fileName) {
         }
       });
     });
-    console.log(" DeleteLogBool v DeleteLogBool DeleteLogBool DeleteLogBool v DeleteLogBool",DeleteLogBool);
-    return true
+    console.log(
+      " DeleteLogBool v DeleteLogBool DeleteLogBool DeleteLogBool v DeleteLogBool",
+      DeleteLogBool
+    );
+    return true;
   } catch (error) {
-    console.log("Error in DeleteLogModal",error);
-    return false
+    console.log("Error in DeleteLogModal", error);
+    return false;
   }
 }
 
