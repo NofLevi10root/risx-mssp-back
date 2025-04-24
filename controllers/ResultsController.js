@@ -258,8 +258,8 @@ async function ImportVeloResult(req, res, next) {
       "ImportVeloResult ImportVeloResult ImportVeloResult ImportVeloResult ImportVeloResult s"
     );
     console.log(`File Uploaded successfully ${req.body?.fileName}`);
-    res.send(true)
-    
+    res.send(true);
+
     const PYTHON_SCRIPTS_RELATIVE_PATH =
       process.env.PYTHON_SCRIPTS_RELATIVE_PATH;
     const RELATIVE_PATH = path.resolve(__dirname, "..", "..");
@@ -325,7 +325,56 @@ async function ImportVeloResult(req, res, next) {
   }
 }
 
+async function GetRules(req, res, next) {
+  const { id } = req.body;
+  let file_name = "";
+  console.log(req.body,"asdasdasdasdasda222222222222222222222222222");
+  
+  switch (id) {
+    case "Yara":
+      file_name = "response_folder/yara_rules.json";
+      break;
+    case "Nuclei":
+      file_name = "response_folder/nuclei_rules.json";
+      break;
+    case "Sigma":
+      file_name = "response_folder/sigma_rules.json";
+      break;
+  }
+  console.log("get_single_velociraptor_response", file_name);
+
+  try {
+    const size = await check_file_size(file_name);
+
+    //  const MB_limit = 0.022
+    const MB_limit = 1;
+
+    console.log("file size= ", size, "MB_limit= ", MB_limit);
+    console.log(" MB_limit < size ", MB_limit < size);
+
+    if (MB_limit < size) {
+      console.log("json file too big", size);
+
+      return res.status(200).json({
+        success: false,
+        fileSize: "Too big",
+        mbSize: size,
+        message: `File is too big. Maximum size allowed is ${MB_limit} MB.`,
+      });
+    } else {
+      const result = await get_single_velociraptor_result_model(file_name);
+      if (result) {
+        return res.send(result);
+      }
+    }
+  } catch (err) {
+    res.send(err.message);
+    next(err);
+  }
+}
+
 module.exports = {
+  GetRules,
   ImportVeloResult,
   // get_all_latest_results_dates,
   get_single_velociraptor_response,
@@ -336,4 +385,3 @@ module.exports = {
   download_json_file,
   delete_results,
 };
-

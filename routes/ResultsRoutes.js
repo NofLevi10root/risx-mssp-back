@@ -70,6 +70,11 @@ router.post(
   ResultsController.ImportVeloResult
 );
 
+router.post(
+  "/GetRules",
+  ResultsController.GetRules
+);
+
 //  router.get('/count-responses-files', ResultsController.count_velociraptor_responses);
 
 //  router.get('/get_all_latest_results_dates', ResultsController.get_all_latest_results_dates);
