@@ -328,8 +328,8 @@ async function ImportVeloResult(req, res, next) {
 async function GetRules(req, res, next) {
   const { id } = req.body;
   let file_name = "";
-  console.log(req.body,"asdasdasdasdasda222222222222222222222222222");
-  
+  console.log(req.body, "asdasdasdasdasda222222222222222222222222222");
+
   switch (id) {
     case "Yara":
       file_name = "response_folder/yara_rules.json";
@@ -339,6 +339,12 @@ async function GetRules(req, res, next) {
       break;
     case "Sigma":
       file_name = "response_folder/sigma_rules.json";
+      break;
+    case "Mitigation":
+      file_name = "response_folder/mitigations.json";
+      break;
+    case "Exploit":
+      file_name = "response_folder/known_exploits.json";
       break;
   }
   console.log("get_single_velociraptor_response", file_name);
