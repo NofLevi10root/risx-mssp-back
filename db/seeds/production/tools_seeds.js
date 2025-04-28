@@ -469,7 +469,7 @@ exports.seed = async function (knex) {
       headline: "ASM",
       isActive: false,
       ShowInUi: true,
-      logoAddress_1: "./Logos/ChatGpt.png",
+      logoAddress_1: "./Logos/LLM.svg",
       logoAddress_2: "",
       iconAddress: "",
       description_short:
@@ -478,7 +478,7 @@ exports.seed = async function (knex) {
         "Locates all the cve relevant to the timeframe and products provided ",
       Status: "blue",
       buttonTitle: "Explore",
-      toolURL: "https://chatgpt.com/?model=gpt-4o",
+      toolURL: "",
       ServicePackage: "Premium",
       threshold_time: 24,
       arguments: { tags: [] },

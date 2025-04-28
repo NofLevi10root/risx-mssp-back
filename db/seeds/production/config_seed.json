@@ -127,7 +127,7 @@
         "Show": false,
         "Description": "To Much Data Ignore"
       },
-      "Custom.Windows.Detection.Usn.malwareTest": {
+      "Python.Suspicious.File.Found": {
         "Log": true,
         "Name": "Timestomping",
         "Show": true,

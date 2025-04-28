@@ -9,6 +9,8 @@ const {
   Check_if_resource_exists_to_avoid_duplication_for_post,
   Check_if_resource_exists_to_avoid_duplication_for_edit,
   Check_if_resource_id_exists_to_continue,
+  Check_if_resource_exists_to_avoid_duplication_for_edit_entity,
+  Check_if_resource_exists_to_avoid_duplication_for_post_entity,
 } = require("../middleware/ResourcesMiddleware");
 const {
   post_resource_schema,
@@ -80,12 +82,19 @@ router.delete("/Entity/:EntityId", ResourcesController.DeleteSingleEntity); //de
 
 //  router.get('/default-columns',ResourcesController.getDefaultColumns);
 
-router.post("/AddEntity", ResourcesController.AddEntity);
+router.post(
+  "/AddEntity",
+  Check_if_resource_exists_to_avoid_duplication_for_post_entity,
+  ResourcesController.AddEntity
+);
 
-router.put("/UpdateEntity", ResourcesController.UpdateEntity);
+router.put(
+  "/UpdateEntity",
+  Check_if_resource_exists_to_avoid_duplication_for_edit_entity,
+  ResourcesController.UpdateEntity
+);
 
 router.post("/AddTagToResource", ResourcesController.AddTagToResource);
 router.post("/DeleteTagToResource", ResourcesController.DeleteTagToResource);
-
 
 module.exports = router;

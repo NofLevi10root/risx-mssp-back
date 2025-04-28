@@ -66,7 +66,7 @@ async function GetDashBoardClientIdVelo(req, res, next) {
     );
 
     res.send(
-      file[name[0]?.resource_string] ?? name[0]?.resource_string ?? false
+      file[name[0]?.resource_string]  ?? false
     );
   } catch (error) {
     console.log("error in GetDashBoardClientIdVelo :", error);

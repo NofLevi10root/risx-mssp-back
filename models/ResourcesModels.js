@@ -30,6 +30,27 @@ async function get_single_resource_by_id(resource_id) {
   }
 }
 
+async function get_single_entity_by_id(entities_id) {
+  if (!entities_id) {
+    console.log("problem no  entities_id");
+    return false
+  }
+
+  try {
+    console.log("get_single_resource_by_id");
+
+    const single = await DBConnection("entities")
+      .select("*")
+      .where("entities_id", "=", entities_id);
+
+    if (single) {
+      return single;
+    }
+  } catch (err) {
+    console.log("get_All_Resources_model err", err);
+  }
+}
+
 async function post_new_resource_model(
   item_tool_list,
   item_types_list,
@@ -367,6 +388,26 @@ async function check_if_string_exist_in_db(resource_string, item_types_list) {
   }
 }
 
+async function check_if_string_exist_in_db_entity(resource_string) {
+  try {
+    // Iterate over each item type and check if the resource string exists
+    const exist = await DBConnection("entities")
+      .select("entity_name")
+      .where("entity_name", "=", resource_string);
+
+    if (exist.length > 0) {
+      console.log("exist");
+      return true;
+    }
+
+    console.log("no exist");
+    return false;
+  } catch (err) {
+    console.error(err);
+    return false; // Consider what should be returned in case of an error
+  }
+}
+
 async function check_if_id_exist_in_db(resource_id) {
   console.log("resource_id", resource_id);
   try {
@@ -656,4 +697,6 @@ module.exports = {
   get_Same_Type_model,
   post_new_resource_model,
   get_single_resource_by_id,
+  check_if_string_exist_in_db_entity,
+  get_single_entity_by_id,
 };

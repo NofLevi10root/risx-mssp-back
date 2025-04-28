@@ -7,6 +7,8 @@ const {
   check_if_string_exist_in_db,
   check_if_id_exist_in_db,
   get_single_resource_by_id,
+  check_if_string_exist_in_db_entity,
+  get_single_entity_by_id,
 } = require("../models/ResourcesModels");
 
 function validateBody(schema) {
@@ -48,6 +50,27 @@ async function Check_if_resource_exists_to_avoid_duplication_for_post(
     res
       .status(400)
       .send(`Asset named "${resource_string}" already exists for this type.`);
+
+    console.log("This Asset is already in this type");
+    return;
+  }
+  next();
+}
+
+async function Check_if_resource_exists_to_avoid_duplication_for_post_entity(
+  req,
+  res,
+  next
+) {
+  req.body.entityName = req.body?.entityName?.trim();
+
+  const { entityName } = req.body;
+
+  const exist = await check_if_string_exist_in_db_entity(entityName);
+  if (exist) {
+    res
+      .status(400)
+      .send(`Asset named "${entityName}" already exists for this type.`);
 
     console.log("This Asset is already in this type");
     return;
@@ -97,6 +120,52 @@ async function Check_if_resource_exists_to_avoid_duplication_for_edit(
   }
 }
 
+async function Check_if_resource_exists_to_avoid_duplication_for_edit_entity(
+  req,
+  res,
+  next
+) {
+  req.body.entityName = req.body?.entityName?.trim();
+
+  console.log(
+    req.body,
+    "req.body req.body req.body req.bodyreq.bodyreq.bodyreq.bodyreq.bodyreq.bodyreq.bodyreq.body"
+  );
+
+  const { entitiesId, entityName } = req.body;
+
+  // console.log("item_types_list" ,item_types_list);
+
+  const [the_original] = await get_single_entity_by_id(entitiesId);
+
+  // console.log("Check_if_resource_exists_to_avoid_duplication_for_edit"  );
+
+  if (the_original?.entity_name === entityName) {
+    console.log("not try to change string");
+    next();
+  }
+
+  if (the_original?.entity_name != entityName) {
+    console.log("try to change his name");
+
+    const exist = await check_if_string_exist_in_db_entity(entityName);
+
+    if (exist) {
+      res
+        .status(400)
+        .send(
+          `Cant Change to "${entityName}", its already exists for this type.`
+        );
+
+      console.log("This Asset is already in this type");
+      return;
+    }
+    next();
+
+    // return res.status(400).send(`try to change your name`)
+  }
+}
+
 // if(resource_string === the_original?.resource_string){
 //   console.log("if true allow -  its his string name" ,resource_string === the_original?.resource_string);
 //   next()
@@ -128,8 +197,6 @@ async function Check_if_resource_exists_to_avoid_duplication_for_edit(
 // return
 
 async function Check_if_resource_id_exists_to_continue(req, res, next) {
-
-
   const { resource_id } = req.body;
 
   const exist = await check_if_id_exist_in_db(resource_id);
@@ -182,4 +249,6 @@ module.exports = {
   Check_if_resource_exists_to_avoid_duplication_for_post,
   Check_if_resource_exists_to_avoid_duplication_for_edit,
   Check_if_resource_id_exists_to_continue,
+  Check_if_resource_exists_to_avoid_duplication_for_post_entity,
+  Check_if_resource_exists_to_avoid_duplication_for_edit_entity,
 };

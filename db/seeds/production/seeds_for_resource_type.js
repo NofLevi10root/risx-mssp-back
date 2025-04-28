@@ -88,7 +88,7 @@ exports.seed = async function (knex) {
       resource_type_id: 2008,
       category_name: "Endpoints",
       resource_type_name: "Computer",
-      preview_name: "Name",
+      preview_name: "Hostname",
       description_short:
         "Essential for safeguarding data, preventing breaches, and ensuring network security",
       description_long:
