@@ -210,7 +210,7 @@
       "id": "2001018",
       "Enable": 0,
       "Arguments": {
-        "VENDOR_NAME:": "ChatGPT",
+        "VENDOR_NAME": "ChatGPT",
         "MODEL_NAME": "gpt-4o-mini-search-preview",
         "TEMPERATURE": 0.7,
         "MAX_TOKENS": 4096,
