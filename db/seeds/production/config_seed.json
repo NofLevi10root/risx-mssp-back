@@ -210,7 +210,10 @@
       "id": "2001018",
       "Enable": 0,
       "Arguments": {
-        "MODEL": "gpt-4o-mini-search-preview",
+        "VENDOR_NAME:": "ChatGPT",
+        "LLM_API_KEY": "",
+        "MODEL_NAME": "gpt-4o-mini-search-preview",
+        "TEMPERATURE": 0.7,
         "MAX_TOKENS": 4096,
         "PROMPT": "",
         "PRODUCTS": [],
@@ -221,7 +224,8 @@
         "TimeForProductsDetectionInSeconds": "120",
         "RunNuclei": "true",
         "RunYara": "true",
-        "RunSigma": "true"
+        "RunSigma": "true",
+        "SYSTEM_PROMPT": "prompt"
       },
       "ExpireDate": "0",
       "ModuleName": "AIVulnerability",
