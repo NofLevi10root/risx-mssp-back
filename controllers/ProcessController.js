@@ -6,8 +6,6 @@ const {
   search_And_Kill_Process,
 } = require("../models/ProcessModels");
 
-// const logger = require("./logger");
-const logger = require("../logger");
 
 async function check_and_active_interval(req, res, next) {
   try {
@@ -76,13 +74,13 @@ async function Check_Interval_Status(req, res, next) {
         console.log("Process running status:", isRunning);
 
         if (isRunning) {
-          logger.info(
+          console.log(
             `${file_name} check_main_process_status_model: ${isRunning}`
           );
         }
         if (!isRunning) {
           check_and_active_interval(); // Checks if it is off and starts the interval important for when given to install
-          logger.error(
+          console.error(
             `${file_name} check_main_process_status_model: ${isRunning}`
           );
         }
@@ -101,12 +99,12 @@ async function Check_Interval_Status(req, res, next) {
       // res.send(true);
     }
     if (bobo === false) {
-      logger.error(`${file_name} check_main_process_status_model: ${bobo}`);
+      console.error(`${file_name} check_main_process_status_model: ${bobo}`);
       console.log("bobo === false");
       // res.send(false);
     }
   } catch (err) {
-    logger.error(` check_main_process_status_model catch(err): ${err}`);
+    console.error(` check_main_process_status_model catch(err): ${err}`);
     console.log(err);
   }
 
@@ -157,7 +155,7 @@ async function active_manual_process(req, res, next) {
           res.status(200).send({ message: result.message, success: true });
         } else if (result.success === false) {
           console.log("controller  ->  result.success === false:", result);
-          logger.error(`active_manual_process. error: ${result.message}`);
+          console.error(`active_manual_process. error: ${result.message}`);
           res.status(500).send({ message: result.message, success: false });
         }
       })
@@ -166,7 +164,7 @@ async function active_manual_process(req, res, next) {
           "controller  -> active_manual_process_model  .catch(error =>:",
           error
         );
-        logger.error(
+        console.error(
           `active_manual_process. catch(error => error1: ${error.message}`
         );
         res.status(500).send({ message: error.message, success: false }); // Send the error message to the front end
@@ -177,7 +175,7 @@ async function active_manual_process(req, res, next) {
       "controller  ->  active_manual_process_model  } catch (err) {",
       err
     );
-    logger.error(
+    console.error(
       `active_manual_process. catch(error => error2: ${err.message}`
     );
     res.status(500).send({ message: err.message, success: false }); // Send the error message to the front end

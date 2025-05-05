@@ -132,6 +132,12 @@
         "Name": "Timestomping",
         "Show": true,
         "Description": "Show Files That experienced Timestomping"
+      },
+      "Custom.Windows.Detection.Usn.malwareTest": {
+        "Log": true,
+        "Name": "Suspicious Pf but no problem",
+        "Show": false,
+        "Description": "Found a pf file but there are no problems in the usn"
       }
     },
     "AgentLinks": {

@@ -11,7 +11,7 @@ async function get_log_model(logName, fileName) {
   let log_file_name = fileName;
   let log_File_Path = "";
 
-  const risx_mssp_back_logs = ["log_mssp_backend"];
+  const risx_mssp_back_logs = ["log_mssp_backend", "log_mssp_backend_requests"];
   const risx_mssp_python_script_logs = [
     "log_python_interval",
     "log_python_main",
@@ -42,6 +42,7 @@ async function get_log_model(logName, fileName) {
         "..",
         "..",
         "risx-mssp-back",
+        "logs",
         log_file_name
       );
     } else {
@@ -86,7 +87,10 @@ async function DeleteLogModal(logName, fileName) {
     let log_file_name = fileName;
     let log_File_Path = "";
 
-    const risx_mssp_back_logs = ["log_mssp_backend"];
+    const risx_mssp_back_logs = [
+      "log_mssp_backend",
+      "log_mssp_backend_requests",
+    ];
     const risx_mssp_python_script_logs = [
       "log_python_interval",
       "log_python_main",
@@ -116,6 +120,7 @@ async function DeleteLogModal(logName, fileName) {
         "..",
         "..",
         "risx-mssp-back",
+        "logs",
         log_file_name
       );
     } else {

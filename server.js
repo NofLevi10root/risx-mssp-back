@@ -1,5 +1,5 @@
 const express = require("express");
-const logger = require("./logger");
+const logger = require("./helpers/Request_logger");
 const fs = require("fs");
 const cors = require("cors");
 const { v4: uuid } = require("uuid");
@@ -8,13 +8,19 @@ const bodyParser = require("body-parser"); /// seco
 const routes = require("./routes");
 const dotenv = require("dotenv").config();
 const app = express();
+const setupLogger = require('./helpers/RewriteConsoleLogger');
+// Rwrite The Defult console.anything to write to file and console do not touch
+setupLogger()
+
+
+console.log("Start Server ...............*****************************************");
 console.log("Server Version is 0.8.8");
 
 const front_ip = process.env.FRONT_IP || "";
 const front_port = process.env.FRONT_PORT || 3003;
 const front_url = process.env.FRONT_URL || "";
 app.use((req, res, next) => {
-  console.log("Start req, req ip ", req.headers.origin);
+  console.log("Starting A request From", req.headers.origin);
   next();
 }); //
 
