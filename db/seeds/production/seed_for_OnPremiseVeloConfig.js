@@ -113,7 +113,7 @@ exports.seed = async function (knex) {
             parameters: {},
           },
           {
-            name: "DetectRaptor.Windows.Detection.Acmache",
+            name: "DetectRaptor.Windows.Detection.Amcache",
             parameters: {},
           },
           {
@@ -141,11 +141,11 @@ exports.seed = async function (knex) {
             parameters: {},
           },
           {
-            name: "DetectRaptor.Windows.Detection.LoLDriversMalicious",
+            name: "DetectRaptor.Windows.Detection.LolDriversMalicious",
             parameters: {},
           },
           {
-            name: "DetectRaptor.Windows.Detection.LoLDriversVulnerable",
+            name: "DetectRaptor.Windows.Detection.LolDriversVulnerable",
             parameters: {},
           },
           {

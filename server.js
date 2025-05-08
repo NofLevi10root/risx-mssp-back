@@ -8,13 +8,14 @@ const bodyParser = require("body-parser"); /// seco
 const routes = require("./routes");
 const dotenv = require("dotenv").config();
 const app = express();
-const setupLogger = require('./helpers/RewriteConsoleLogger');
+const setupLogger = require("./helpers/RewriteConsoleLogger");
 // Rwrite The Defult console.anything to write to file and console do not touch
-setupLogger()
+setupLogger();
 
-
-console.log("Start Server ...............*****************************************");
-console.log("Server Version is 0.8.8");
+console.log(
+  "Start Server ...............*****************************************"
+);
+console.log("Server Version is 0.8.9");
 
 const front_ip = process.env.FRONT_IP || "";
 const front_port = process.env.FRONT_PORT || 3003;
