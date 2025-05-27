@@ -170,11 +170,31 @@ async function GetAllAlertsMonitorMod() {
   }
 }
 
+async function ClearAlertDataChangeMod() {
+  try {
+    const timeEpoch = Date.now();
+    const IsoTime = new Date(timeEpoch).toISOString();
+    console.log("this is date ", timeEpoch, IsoTime);
+
+    const AletDic = await DBConnection.raw(
+      `UPDATE configjson SET config = JSON_SET(config,'$.General.IntervalConfigurations.AlertsConfiguration.AlertSortDate', '${IsoTime}','$.General.IntervalConfigurations.AlertsConfiguration.LastTimeStampInterval','${timeEpoch}')`
+    );
+    console.log("AletDicAletDicAletDicAletDicAletDicAletDic", AletDic);
+
+    return true;
+  } catch (error) {
+    console.log("Error in ClearAlertDataChangeMod : ", error);
+    return false;
+  }
+}
+
 module.exports = {
+  ClearAlertDataChangeMod,
   GetAllAlertsMonitorMod,
   UpdateAlertConfigMod,
   GetAlertsConfigMod,
   GetAlertsFile,
   UpdateAlertFile,
-  GetSortDate,GetSortDateBool
+  GetSortDate,
+  GetSortDateBool,
 };

@@ -13,7 +13,7 @@ const setupLogger = require("./helpers/RewriteConsoleLogger");
 setupLogger();
 
 console.log(
-  "Start Server ...............*****************************************"
+  "Start Server ...............******************************************"
 );
 console.log("Server Version is 0.8.9");
 

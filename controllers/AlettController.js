@@ -6,6 +6,7 @@ const {
   UpdateAlertConfigMod,
   GetAllAlertsMonitorMod,
   GetSortDateBool,
+  ClearAlertDataChangeMod,
 } = require("../models/AlertModal");
 const { get_full_config_model } = require("../models/ConfigModels");
 const { RunAlertHelperModal } = require("../models/ProcessModels");
@@ -146,7 +147,19 @@ async function GetAllAlertsMonitor(req, res, next) {
   }
 }
 
+async function ClearAlertDataChange(req, res, next) {
+  try {
+    console.log("hello ClearAlertDataChange ", req.body);
+
+    const responseMod = await ClearAlertDataChangeMod();
+    res.send(responseMod);
+  } catch (err) {
+    console.log("Error In ClearAlertDataChange ", err);
+    res.status(404).send({ msg: "Error in ClearAlertDataChange", error: err });
+  }
+}
 module.exports = {
+  ClearAlertDataChange,
   GetAllAlertsMonitor,
   UpdateAlertConfig,
   GetAlertsConfig,
