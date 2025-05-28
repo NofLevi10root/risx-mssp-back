@@ -264,7 +264,9 @@ async function add_time_note(ReqestStatus) {
     }
     return "ddddd";
   } catch (err) {
-    res.send(err);
+    console.log("add_time_note ", err);
+
+    return err;
   }
 }
 
@@ -274,7 +276,31 @@ async function get_ReqestStatus_from_config_file() {
       'SELECT JSON_EXTRACT(config,"$.RequestStatus") as data FROM configjson;'
     );
 
-    return ReqestStatus?.[0].data;
+    const [[AletDic]] = await DBConnection.raw(
+      'SELECT JSON_EXTRACT(config,"$.General.ResultsSortDate") as a from configjson'
+    );
+    const moonLanding = new Date(AletDic.a);
+    const SortDate = moonLanding.getTime();
+
+    const filteredArray = await ReqestStatus?.[0].data?.filter((x) => {
+      const [day, month, year, hour, minute, second] =
+        x?.StartDate.split("-").map(Number);
+      const date = new Date(
+        Date.UTC(year, month - 1, day, hour, minute, second)
+      );
+      const xDate = date.getTime();
+
+      console.log(xDate, SortDate); // outputs: 1745381014
+
+      if (xDate > SortDate) {
+        return true;
+      } else {
+        return false;
+      }
+    });
+    console.log("filteredArray", filteredArray);
+
+    return filteredArray;
   } catch (err) {
     console.error("Error reading or parsing file:", err);
     return []; // Return an empty array in case of error

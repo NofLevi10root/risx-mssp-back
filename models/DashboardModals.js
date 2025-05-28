@@ -23,4 +23,24 @@ async function GetClientName(id) {
   }
 }
 
-module.exports = { GetDashFile, GetClientName };
+async function ClearResultsDataDashboardMod() {
+  try {
+    console.log("mod ClearResultsDataDashboardMod");
+
+    const timeEpoch = Date.now();
+    const IsoTime = new Date(timeEpoch).toISOString();
+    console.log("this is date ", timeEpoch, IsoTime);
+
+    const AletDic = await DBConnection.raw(
+      `UPDATE configjson SET config = JSON_SET(config,'$.General.ResultsSortDate', '${IsoTime}')`
+    );
+    console.log("AletDicAletDicAletDicAletDicAletDicAletDic", AletDic);
+
+    return true;
+  } catch (error) {
+    console.log("error in ClearResultsDataDashboardMod", error);
+    return false;
+  }
+}
+
+module.exports = { GetDashFile, GetClientName, ClearResultsDataDashboardMod };

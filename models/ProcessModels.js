@@ -29,8 +29,9 @@ async function RunAlertHelperModal(status) {
     "main.py"
   );
 
-  const command = `
-python ${PYTHON_EXECUTABLE_RELATVE} ${status == "modification" ? "-m" : "-u"}`;
+  const command = `python ${PYTHON_EXECUTABLE_RELATVE} ${
+    status == "modification" ? "-m" : "-u"
+  }`;
   console.log("command interval = ", command);
 
   try {
@@ -149,9 +150,7 @@ async function active_interval_process_model() {
   // ${PYTHON_EXECUTABLE_RELATVE} ${SCRIPTS_PATH}/${PYTHON_INTERVAL_FILENAME}
   // `;
 
-  const command = `
-python ${SCRIPTS_PATH}/${PYTHON_INTERVAL_FILENAME}
-`;
+  const command = `python ${SCRIPTS_PATH}/${PYTHON_INTERVAL_FILENAME}`;
   console.log("command interval = ", command);
 
   try {
@@ -448,6 +447,39 @@ async function active_manual_process_model() {
   }
 }
 
+function search_Plaso_Process() {
+  return new Promise((resolve, reject) => {
+    // Search for the process
+    exec(`sudo docker ps `, (err, stdout, stderr) => {
+      console.log("err", err, "stdout", stdout, "stderr", stderr);
+
+      if (err) {
+        console.error(`Error searching for process: ${err}`);
+        return reject(err);
+      }
+
+      if (stderr) {
+        console.error(`stderr: ${stderr}`);
+        return reject(stderr);
+      }
+
+      if (!stdout) {
+        console.log("No such process found.");
+        return resolve(false);
+      }
+      if (stdout.includes("plaso")) {
+        console.log(true);
+
+        return resolve(true);
+      } else {
+        console.log(false);
+
+        return resolve(false);
+      }
+    });
+  });
+}
+
 function search_And_Kill_Process(processName, useSIGKILL = true) {
   console.log("Searching and killing process:", processName);
 
@@ -548,6 +580,7 @@ module.exports = {
   search_And_Kill_Process,
   get_all_python_processes,
   RunAlertHelperModal,
+  search_Plaso_Process,
 };
 
 // const command2 = `

@@ -217,6 +217,18 @@ async function GetAllVeloConfigSideBarModel() {
   }
 }
 
+async function GetISTimeSketchRun() {
+  try {
+    console.log("start GetISTimeSketchRun");
+    const [[the_config_json]] = await DBConnection.raw(
+      'SELECT JSON_EXTRACT(config,"$.Modules.TimeSketch.Enable") as a FROM configjson'
+    );
+    return the_config_json.a;
+  } catch (error) {
+    console.error("Error in GetISTimeSketchRun", error);
+  }
+}
+
 async function GetSpecificCollectorModal(command) {
   try {
     console.log("start GetSpecificCollectorModal");
@@ -392,4 +404,5 @@ module.exports = {
   GetAssetsModal,
   PostImportedAssets,
   GetAllVeloConfigModel,
+  GetISTimeSketchRun,
 };

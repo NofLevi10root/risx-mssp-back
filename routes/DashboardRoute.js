@@ -7,5 +7,6 @@ router.get(
   "/GetDashBoardClientIdVelo/:id",
   Controller.GetDashBoardClientIdVelo
 ); //get the config file
+router.post("/ClearResultsDataDashboard", Controller.ClearResultsDataDashboard); //get the config file
 
 module.exports = router;

@@ -1,5 +1,9 @@
 const path = require("path");
-const { GetDashFile, GetClientName } = require("../models/DashboardModals");
+const {
+  GetDashFile,
+  GetClientName,
+  ClearResultsDataDashboardMod,
+} = require("../models/DashboardModals");
 const relativePath = process.env.PYTHON_SCRIPTS_RELATIVE_PATH;
 async function GetDashBoardFile(req, res, next) {
   try {
@@ -65,12 +69,24 @@ async function GetDashBoardClientIdVelo(req, res, next) {
       "result send"
     );
 
-    res.send(
-      file[name[0]?.resource_string]  ?? false
-    );
+    res.send(file[name[0]?.resource_string] ?? false);
   } catch (error) {
     console.log("error in GetDashBoardClientIdVelo :", error);
   }
 }
 
-module.exports = { GetDashBoardFile, GetDashBoardClientIdVelo };
+async function ClearResultsDataDashboard(req, res, next) {
+  try {
+    console.log("start ClearResultsDataDashboard");
+    const rer = await ClearResultsDataDashboardMod();
+    res.send(rer);
+  } catch (error) {
+    console.log("Error in ClearResultsDataDashboard: ", error);
+  }
+}
+
+module.exports = {
+  GetDashBoardFile,
+  GetDashBoardClientIdVelo,
+  ClearResultsDataDashboard,
+};

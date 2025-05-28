@@ -20,7 +20,7 @@ function setupLogger(
     info: console.info,
   };
   const logFilePath = path.join(__dirname, logFilePathArg);
-  
+
   // Ensure log directory and file exist
   const directory = path.dirname(logFilePath);
 
@@ -31,20 +31,20 @@ function setupLogger(
       if (!fs.existsSync(directory)) {
         fs.mkdirSync(directory, { recursive: true });
       }
-  
+
       // Create file if it doesn't exist
       if (!fs.existsSync(logFilePath)) {
         fs.writeFileSync(logFilePath, "");
       }
-      
+
       // Create and return a new write stream
       const stream = fs.createWriteStream(logFilePath, { flags: "a" });
-      
+
       // Add error handling for the file stream
       stream.on("error", (error) => {
         originalConsole.error(`Error writing to log file: ${error.message}`);
       });
-      
+
       return stream;
     } catch (error) {
       originalConsole.error(`Error ensuring log file exists: ${error.message}`);
@@ -68,19 +68,19 @@ function setupLogger(
             // Ignore errors when closing
           }
         }
-        
+
         // Get a new stream
         logFile = getLogStream();
-        
+
         // If we can't create a stream, stop here
         if (!logFile) {
           return;
         }
       }
-      
+
       // Write to the log file
       const timestamp = new Date().toISOString();
-      logFile.write(`${timestamp} ${level}: ${message}\n`);
+      logFile.write(`${timestamp} - ${level} - ${message}\n`);
     } catch (error) {
       originalConsole.error(`Error writing to log: ${error.message}`);
     }
@@ -89,9 +89,9 @@ function setupLogger(
   // Override console.log
   console.log = function () {
     const message = util.format.apply(null, arguments);
-    
+
     // Write to file with check
-    writeToLog("LOG", message);
+    writeToLog("INFO", message);
 
     // Also write to the original console if preserveConsole is true
     if (preserveConsole) {
@@ -102,7 +102,7 @@ function setupLogger(
   // Override console.error
   console.error = function () {
     const message = util.format.apply(null, arguments);
-    
+
     // Write to file with check
     writeToLog("ERROR", message);
 
@@ -115,7 +115,7 @@ function setupLogger(
   // Override console.warn
   console.warn = function () {
     const message = util.format.apply(null, arguments);
-    
+
     // Write to file with check
     writeToLog("WARN", message);
 
@@ -128,7 +128,7 @@ function setupLogger(
   // Override console.info
   console.info = function () {
     const message = util.format.apply(null, arguments);
-    
+
     // Write to file with check
     writeToLog("INFO", message);
 

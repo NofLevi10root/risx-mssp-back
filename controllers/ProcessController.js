@@ -1,11 +1,12 @@
+const { GetISTimeSketchRun } = require("../models/ConfigModels");
 const {
   check_main_process_status_model,
   active_manual_process_model,
   active_interval_process_model,
   get_all_python_processes,
   search_And_Kill_Process,
+  search_Plaso_Process,
 } = require("../models/ProcessModels");
-
 
 async function check_and_active_interval(req, res, next) {
   try {
@@ -145,6 +146,21 @@ async function active_manual_process(req, res, next) {
   console.log("active_manual_process");
 
   try {
+    const isTimeSketch = await GetISTimeSketchRun();
+    console.log(isTimeSketch, "isTimeSketch included in the run");
+    if (isTimeSketch) {
+      const plasoRun = await search_Plaso_Process();
+      console.log(plasoRun, "plasoRun");
+      if (plasoRun) {
+        res.status(200).send({
+          message: "Timescketch is Running let it finish and then try again",
+          success: false,
+        });
+        return;
+      }
+      console.log("No plaso Keep Running");
+    }
+
     await active_manual_process_model()
       .then((result) => {
         console.log("controller  ->  active_manual_process_model:", result);
@@ -171,10 +187,6 @@ async function active_manual_process(req, res, next) {
         next(error);
       });
   } catch (err) {
-    console.log(
-      "controller  ->  active_manual_process_model  } catch (err) {",
-      err
-    );
     console.error(
       `active_manual_process. catch(error => error2: ${err.message}`
     );

@@ -13,7 +13,7 @@ const getTimestamp = () => {
 // Log message function
 const logMessage = (level, message) => {
   const timestamp = getTimestamp();
-  const logEntry = `${timestamp} ${level.toUpperCase()}: ${message}\n`;
+  const logEntry = `${timestamp} - ${level.toUpperCase()} - ${message}\n`;
   // Print to console
   // console.log(logEntry.trim());
 

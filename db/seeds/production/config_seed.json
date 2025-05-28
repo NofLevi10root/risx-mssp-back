@@ -1,5 +1,6 @@
 {
   "General": {
+    "ResultsSortDate": "2025-01-26T13:34:03.729Z",
     "AlertDictionary": {
       "Exchange.Windows.ETW.Powershell": {
         "Log": true,
