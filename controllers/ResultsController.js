@@ -58,6 +58,8 @@ async function download_json_file(req, res, next) {
 
     //   return    res.send(result)}
   } catch (err) {
+    console.error("Error in download_json_file :", err);
+
     res.send(err.message);
     res.status(500).send("Server error");
     next(err);
@@ -93,6 +95,8 @@ async function get_single_velociraptor_response(req, res, next) {
       }
     }
   } catch (err) {
+    console.error("Error in get_single_velociraptor_response :", err);
+
     res.send(err.message);
     next(err);
   }
@@ -123,6 +127,8 @@ async function get_velociraptor_aggregate_macro(req, res, next) {
       res.json({ success: true, data: order_result });
     }
   } catch (err) {
+    console.error("Error in get_velociraptor_aggregate_macro :", err);
+
     res.status(400).json({ success: false, message: err.message });
   }
 }
@@ -147,6 +153,8 @@ async function get_all_requests_table(req, res, next) {
       res.send(results);
     }
   } catch (err) {
+    console.error("Error in get_all_requests_table :", err);
+
     res.send(err.message);
     next(err);
   }
@@ -159,7 +167,7 @@ async function count_velociraptor_responses(req, res, next) {
       res.send(number);
     }
   } catch (err) {
-    console.log(err);
+    console.error(err);
     res.send(err);
   }
 }
@@ -184,7 +192,7 @@ async function check_last_req_and_res_for_module(req, res, next) {
       res.send(latest);
     }
   } catch (err) {
-    console.log(err);
+    console.error(err);
     res.send(err);
   }
 }
@@ -313,9 +321,9 @@ async function ImportVeloResult(req, res, next) {
       // res.send(false);
     }
   } catch (error) {
-    console.log("Error in ImportVeloResult");
+    console.error("Error in ImportVeloResult");
 
-    console.log(
+    console.error(
       "req.body.FileFolder req.body.FileFolder ",
       req.body.FileFolder
     );
@@ -374,6 +382,8 @@ async function GetRules(req, res, next) {
       }
     }
   } catch (err) {
+    console.error("Error in GetRules :", err);
+
     res.send(err.message);
     next(err);
   }

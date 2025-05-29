@@ -13,7 +13,7 @@ async function put_full_config_model(config) {
   console.log("put_full_config_model");
 
   if (config === undefined || config === null) {
-    console.log("config file is,", config);
+    console.error("config file is,", config);
     return "Error in Put config file";
   }
 
@@ -133,7 +133,7 @@ async function GetAssetsModal() {
     );
     return fileM;
   } catch (err) {
-    console.log("Error in getAssetsModal ", err);
+    console.error("Error in getAssetsModal ", err);
     return { error: "Error in Export" };
   }
 }
@@ -153,7 +153,7 @@ async function PostImportedAssets(entities, assets) {
 
     return true;
   } catch (err) {
-    console.log("Error in PostImportedAssets ", err);
+    console.error("Error in PostImportedAssets ", err);
     return { error: "Error in Export" };
   }
 }
@@ -166,7 +166,7 @@ async function GetAllVeloConfigModel() {
     );
     return fileA;
   } catch (error) {
-    console.log("Error in GetAllVeloConfigModel", error);
+    console.error("Error in GetAllVeloConfigModel", error);
   }
 }
 
@@ -185,7 +185,7 @@ async function SaveConfigVeloModel(obj) {
     console.log(fileA);
     return true;
   } catch (error) {
-    console.log("Error in SaveConfigVeloModel", error);
+    console.error("Error in SaveConfigVeloModel", error);
     return false;
   }
 }
@@ -201,7 +201,7 @@ async function AddConfigVeloModel(obj) {
     console.log(fileA);
     return true;
   } catch (error) {
-    console.log("Error in AddConfigVeloModel", error);
+    console.error("Error in AddConfigVeloModel", error);
     return false;
   }
 }
@@ -213,7 +213,7 @@ async function GetAllVeloConfigSideBarModel() {
     );
     return fileA;
   } catch (error) {
-    console.log("Error in GetAllVeloConfigModel", error);
+    console.error("Error in GetAllVeloConfigModel", error);
   }
 }
 
@@ -265,7 +265,7 @@ async function GetSpecificCollectorModal(command) {
       }
     });
   } catch (error) {
-    console.log("Error  in GetSpecificCollectorModal", error);
+    console.error("Error  in GetSpecificCollectorModal", error);
   }
 }
 

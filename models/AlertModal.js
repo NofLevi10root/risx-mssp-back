@@ -35,7 +35,7 @@ async function GetAlertsFile() {
       AletDic: AletDic.a,
     };
   } catch (error) {
-    console.log("error in dash getter ", error);
+    console.error("error in dash getter ", error);
     return {};
   }
 }
@@ -78,7 +78,7 @@ async function UpdateAlertFile(Info) {
 
     return true;
   } catch (err) {
-    console.log(err, "update alerts.json gon bad");
+    console.error(err, "update alerts.json gon bad");
     return false;
   }
 }
@@ -90,7 +90,7 @@ async function GetSortDate() {
     );
     return AletDic.a;
   } catch (error) {
-    console.log("Error in GetSortDate : ", error);
+    console.error("Error in GetSortDate : ", error);
   }
 }
 
@@ -116,7 +116,7 @@ async function GetSortDateBool(bool) {
 
     return true;
   } catch (error) {
-    console.log("Error in GetSortDate : ", error);
+    console.error("Error in GetSortDate : ", error);
   }
 }
 
@@ -137,7 +137,7 @@ async function GetAlertsConfigMod(id) {
 
     return { Menu: AletDic, AlertConfig: AletDic1 };
   } catch (error) {
-    console.log("Error in GetAlertsConfigMod : ", error);
+    console.error("Error in GetAlertsConfigMod : ", error);
   }
 }
 
@@ -153,7 +153,7 @@ async function UpdateAlertConfigMod(id, aConfig) {
 
     return ResUpdate;
   } catch (error) {
-    console.log("Error in UpdateAlertConfigMod : ", error);
+    console.error("Error in UpdateAlertConfigMod : ", error);
   }
 }
 
@@ -166,7 +166,7 @@ async function GetAllAlertsMonitorMod() {
 
     return AletDic;
   } catch (error) {
-    console.log("Error in GetAlertsConfigMod : ", error);
+    console.error("Error in GetAlertsConfigMod : ", error);
   }
 }
 
@@ -183,7 +183,7 @@ async function ClearAlertDataChangeMod() {
 
     return true;
   } catch (error) {
-    console.log("Error in ClearAlertDataChangeMod : ", error);
+    console.error("Error in ClearAlertDataChangeMod : ", error);
     return false;
   }
 }

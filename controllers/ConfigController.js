@@ -30,7 +30,7 @@ async function Get_Config(req, res, next) {
     const file = await get_full_config_model();
     res.send(file);
   } catch (err) {
-    console.log(err);
+    console.error(err);
   }
 }
 
@@ -71,14 +71,14 @@ async function Get_From_ENV(req, res, next) {
 
     res.send(data);
   } catch (err) {
-    console.log(err);
+    console.error(err);
   }
 }
 
 async function Update_mssp_config_json_links(req, res, next) {
   const body = req.body;
   if (body === undefined) {
-    console.log("Update_mssp_config_json_links", body);
+    console.error("Update_mssp_config_json_links", body);
     return;
   }
 
@@ -96,66 +96,79 @@ async function Update_mssp_config_json_links(req, res, next) {
 }
 
 const ResetConfigToBasic = async (req, res, next) => {
-  console.log("ResetConfigToBasic boom");
-  const filePath = path.join(
-    __dirname,
-    "..",
-    "db",
-    "seeds",
-    "production",
-    "config_seed.json"
-  );
-  console.log("filePath 55555", filePath);
+  try {
+    console.log("ResetConfigToBasic boom");
+    const filePath = path.join(
+      __dirname,
+      "..",
+      "db",
+      "seeds",
+      "production",
+      "config_seed.json"
+    );
+    console.log("filePath 55555", filePath);
 
-  const BasicConfig = JSON.parse(fs.readFileSync(filePath, "utf8"));
-  console.log("BasicConfig 8893852", BasicConfig);
+    const BasicConfig = JSON.parse(fs.readFileSync(filePath, "utf8"));
+    console.log("BasicConfig 8893852", BasicConfig);
 
-  const put = await put_full_config_model(BasicConfig);
+    const put = await put_full_config_model(BasicConfig);
 
-  if (put === 1) {
-    res.status(200).send("Updated successfully");
-  } else {
-    res.status(500).send("Internal Server Error");
+    if (put === 1) {
+      res.status(200).send("Updated successfully");
+    } else {
+      res.status(500).send("Internal Server Error");
+    }
+  } catch (error) {
+    console.error("Error in ResetConfigToBasic : ", error);
   }
 };
 
 async function DownloadAgent(req, res, next) {
-  console.log("req.body req.body req.body", req?.body);
-  const { PathOs } = req?.body;
-  // console.log(os.homedir()+"\\setup_platform\\scripts\\velociraptor-docker\\velociraptor\\client\\windows\\velociraptor_client.msi");
-  const url = PathOs.replace("~", os.homedir());
-  console.log(url);
-  const exist = await fs.existsSync(url);
-  console.log(
-    "does file exist  0.8.1",
-    exist,
-    "ooooooooooooooooooooooooooooooooossssssssssssssssssssssssss"
-  );
-  if (exist) {
-    res.download(url);
-  } else {
-    res.status(401).send({ error: "no such file" });
+  try {
+    console.log("req.body req.body req.body", req?.body);
+    const { PathOs } = req?.body;
+    // console.log(os.homedir()+"\\setup_platform\\scripts\\velociraptor-docker\\velociraptor\\client\\windows\\velociraptor_client.msi");
+    const url = PathOs.replace("~", os.homedir());
+    console.log(url);
+    const exist = await fs.existsSync(url);
+    console.log(
+      "does file exist  0.8.1",
+      exist,
+      "ooooooooooooooooooooooooooooooooossssssssssssssssssssssssss"
+    );
+    if (exist) {
+      res.download(url);
+    } else {
+      res.status(401).send({ error: "no such file" });
+    }
+  } catch (error) {
+    console.error("Error in DownloadAgent: ", error);
   }
 }
-async function GetAllLeakAsset(req, res, next) {
-  // Work in progress
-  const data = await DBConnection.raw(
-    'SELECT resource_string FROM all_resources where tools like "%2001009%" or tools like "%2001011%"'
-  );
-  console.log("leakCheck Assets data", data);
-  // res.send(data[0].map((x) => x.resource_string));
 
-  const LeakJson = await axios.get(
-    // "https://leakcheck.io/api/v2/query/"+data[0].map((x) => x.resource_string).join(", "),
-    "https://leakcheck.io/api/v2/query/example@example.com",
-    {
-      headers: {
-        Accept: "application/json",
-        "X-API-Key": "d1ade9ae7283d9ed377a54718b9cd1d770cb3f49",
-      },
-    }
-  );
-  console.log("gggggggggggggggg", LeakJson);
+async function GetAllLeakAsset(req, res, next) {
+  try {
+    // Work in progress
+    const data = await DBConnection.raw(
+      'SELECT resource_string FROM all_resources where tools like "%2001009%" or tools like "%2001011%"'
+    );
+    console.log("leakCheck Assets data", data);
+    // res.send(data[0].map((x) => x.resource_string));
+
+    const LeakJson = await axios.get(
+      // "https://leakcheck.io/api/v2/query/"+data[0].map((x) => x.resource_string).join(", "),
+      "https://leakcheck.io/api/v2/query/example@example.com",
+      {
+        headers: {
+          Accept: "application/json",
+          "X-API-Key": "d1ade9ae7283d9ed377a54718b9cd1d770cb3f49",
+        },
+      }
+    );
+    console.log("gggggggggggggggg", LeakJson);
+  } catch (error) {
+    console.error("Error in GetAllLeakAsset:", error);
+  }
 }
 
 async function ExportAllAssets(req, res, next) {
@@ -168,7 +181,7 @@ async function ExportAllAssets(req, res, next) {
 
     res.send(file);
   } catch (err) {
-    console.log("Error in ExportAllAssets ", err);
+    console.error("Error in ExportAllAssets ", err);
   }
 }
 
@@ -210,7 +223,6 @@ async function ImportAllAssets(req, res, next) {
       x.resource_id = id_with_r;
       return x;
     });
-    console.log();
     if (EntitiesFilter.length > 0 || AssetsFilter.length > 0) {
       const r = await PostImportedAssets(EntitiesFilter, AssetsFilter);
       console.log(r, "response of import");
@@ -223,7 +235,7 @@ async function ImportAllAssets(req, res, next) {
     }
     console.log("End ImportAllAssets");
   } catch (err) {
-    console.log("Error in import assets ", err);
+    console.error("Error in import assets ", err);
     res.send("Error");
   }
 }
@@ -255,7 +267,7 @@ async function DeleteResultHistory(req, res, next) {
     });
     res.status(200).send("Delete successfully");
   } catch (error) {
-    console.log("Error in Delete History", error);
+    console.error("Error in Delete History", error);
     res.send("Delete Failed");
   }
 }
@@ -297,7 +309,7 @@ async function GetAllVeloConfig(req, res, next) {
     f.push(obj);
     res.send(f);
   } catch (error) {
-    console.log("Error in GetAllVeloConfig", error);
+    console.error("Error in GetAllVeloConfig", error);
   }
 }
 async function SaveConfigVelo(req, res, next) {
@@ -305,7 +317,7 @@ async function SaveConfigVelo(req, res, next) {
     const response = await SaveConfigVeloModel(req.body);
     res.send(response);
   } catch (error) {
-    console.log("Error in SaveConfigVelo", error);
+    console.error("Error in SaveConfigVelo", error);
   }
 }
 async function InsertConfigVelo(req, res, next) {
@@ -313,7 +325,7 @@ async function InsertConfigVelo(req, res, next) {
     const response = await AddConfigVeloModel(req.body);
     res.send(response);
   } catch (error) {
-    console.log("Error in SaveConfigVelo", error);
+    console.error("Error in InsertConfigVelo", error);
   }
 }
 
@@ -322,7 +334,7 @@ async function GetAllVeloConfigSideBar(req, res, next) {
     const response = await GetAllVeloConfigSideBarModel(req.body);
     res.send(response);
   } catch (error) {
-    console.log("Error in GetAllVeloConfigSideBar", error);
+    console.error("Error in GetAllVeloConfigSideBar", error);
   }
 }
 async function GetSpecificCollector(req, res, next) {
@@ -376,7 +388,7 @@ async function GetSpecificCollector(req, res, next) {
       }
     }
   } catch (error) {
-    console.log("Error in  GetSpecificCollector", error);
+    console.error("Error in  GetSpecificCollector", error);
   }
 }
 
@@ -406,7 +418,7 @@ async function CreateStorageVeloDiskAgent(req, res, next) {
     console.log("command1", command1);
     console.log("command2", command2);
   } catch (error) {
-    console.log("Error in  GetSpecificCollector", error);
+    console.error("Error in  GetSpecificCollector", error);
   }
 }
 
@@ -421,7 +433,7 @@ async function BringSpecificConfig(req, res, next) {
 
     res.send(rr);
   } catch (error) {
-    console.log("Error in  BringSpecificConfig", error);
+    console.error("Error in  BringSpecificConfig", error);
   }
 }
 
@@ -436,7 +448,7 @@ async function SaveSpecificConfig(req, res, next) {
 
     res.send(rr);
   } catch (error) {
-    console.log("Error in  SaveSpecificConfig", error);
+    console.error("Error in  SaveSpecificConfig", error);
   }
 }
 

@@ -34,10 +34,13 @@ async function get_All_Resources(req, res, next) {
       res.send(All_Resources);
     }
   } catch (err) {
+    console.error("Error in get_all_resources:", err);
+
     res.sand(err.message);
     next(err);
   }
 }
+
 async function get_Same_Type(req, res, next) {
   const { asset_type_id } = req.query;
 
@@ -47,6 +50,8 @@ async function get_Same_Type(req, res, next) {
       res.send(Same_Type);
     }
   } catch (err) {
+    console.error("Error in get_same_type", err);
+
     res.sand(err.message);
     next(err);
   }
@@ -84,6 +89,8 @@ async function get_All_Resources_filtered(req, res, next) {
       res.send(filtered_Resources);
     }
   } catch (err) {
+    console.error("Error get_All_Resources_filtered:", err);
+
     res.send(err.message);
     next(err);
   }
@@ -96,6 +103,8 @@ async function getAllResourceType(req, res, next) {
       res.send(AllResourceType);
     }
   } catch (err) {
+    console.error("Error getAllResourceType:", err);
+
     res.sand(err.message);
     next(err);
   }
@@ -119,147 +128,12 @@ async function Count_From_Same_Type(req, res, next) {
 
     // if(AllResourceType){   res.send(AllResourceType);}
   } catch (err) {
+    console.error("Error Count_From_Same_Type:", err);
+
     res.sand(err.message);
     next(err);
   }
 }
-
-// async function post_new_resource (req, res, next) {
-
-//   console.log(req.body);
-
-//   const {item_tool_list} = req.body
-//   const {item_types_list} = req.body
-//   const {description} = req.body
-//   const {monitoring} = req.body
-
-// // const item_types_list_toString =item_types_list.toString();
-// // const item_tool_list_toString =item_tool_list.toString();
-
-// try{
-//   // const id = uuid()
-//   // const id_short = id.replace(/-/g, "").substring(0, 10);
-
-//   const id = uuid();
-//   const id_short = id.replace(/-/g, "").substring(0, 9);
-//   const id_with_r = 'r' + id_short;
-
-//  const posted = await DBConnection('all_resources')
-// .insert({
-//   resource_id: id_with_r,
-//   resource_string:  req.body?.resource_string,
-//   type:item_types_list.toString(),
-//   tools: item_tool_list.toString(),
-//   description: description,
-//   monitoring: monitoring
-// });
-
-// if (posted){
-//   console.log("posted" ,posted);
-//   const the_new_item = await DBConnection('all_resources').select('*').where('resource_id', '=', id_with_r);
-// if(the_new_item){res.status(200).send(the_new_item);}
-
-// }
-
-// }
-
-// catch (err) {
-//     res.send(err.message)
-//     return res.status(500).send(err.message);
-
-//     // console.log(err.message);
-//     // next(err);
-//   }
-
-// }
-// async function post_new_resource(req, res, next) {
-//   console.log(req.body);
-
-//   const { item_tool_list, item_types_list, description, monitoring } = req.body;
-
-//   try {
-//     const id = uuid();
-//     const id_short = id.replace(/-/g, "").substring(0, 9);
-//     const id_with_r = 'r' + id_short;
-
-//     // Insert new resource into the database
-//     const posted = await DBConnection('all_resources').insert({
-//       resource_id: id_with_r,
-//       resource_string: req.body?.resource_string,
-//       type: item_types_list.toString(),
-//       tools: item_tool_list.toString(),
-//       description: description,
-//       monitoring: monitoring
-//     });
-
-//     if (posted) {
-//       console.log("Resource posted:", posted);
-
-//       // Fetch the newly inserted resource from the database
-//       const the_new_item = await DBConnection('all_resources').select('*').where('resource_id', '=', id_with_r);
-
-//       if (the_new_item.length > 0) {
-//         // Respond with the newly inserted resource
-//         res.status(200).json(the_new_item);
-//       } else {
-//         // If the_new_item is empty, respond with a 404 Not Found or appropriate error
-//         res.status(404).json({ error: 'Resource not found after insertion' });
-//       }
-//     } else {
-//       // If posted is false or undefined, respond with an error
-//       res.status(500).json({ error: 'Failed to insert resource' });
-//     }
-//   } catch (error) {
-//     // Catch any errors that occur during database operations or processing
-//     console.error('Error posting resource:', error);
-//     res.status(500).json({ error: 'Internal server error' });
-//   }
-// }
-
-// async function post_new_resource (req, res, next) {
-
-//   console.log("dddddddddddddddd post_new_resource dddddddddddddddddddddddd",req.body);
-
-//   const {item_tool_list} = req.body
-//   const {item_types_list} = req.body
-//   const {description} = req.body
-//   const {monitoring} = req.body
-// try{
-//   // const id = uuid()
-//   // const id_short = id.replace(/-/g, "").substring(0, 10);
-
-//   const id = uuid();
-//   const id_short = id.replace(/-/g, "").substring(0, 9);
-//   const id_with_r = 'r' + id_short;
-
-//  const posted = await DBConnection('all_resources')
-// .insert({
-//   resource_id: id_with_r,
-//   resource_string:  req.body?.resource_string,
-//   type:item_types_list.toString(),
-//   tools: item_tool_list.toString(),
-//   description: description,
-//   monitoring: monitoring
-// });
-
-// if (posted){
-//   console.log("posted" ,posted);
-//   const the_new_item = await DBConnection('all_resources').select('*').where('resource_id', '=', id_with_r);
-// if(the_new_item){res.status(200).send(the_new_item);}
-
-// }
-
-// }
-
-// catch (err) {
-//     res.send(err.message)
-//     return res.status(500).send(err.message);
-
-//     // console.log(err.message);
-//     // next(err);
-//   }
-
-// }
 
 async function post_many_new_resource(req, res, next) {
   console.log(" post_many_new_resource", req.body);
@@ -315,7 +189,7 @@ async function post_many_new_resource(req, res, next) {
 
     res.status(500).send("Error in inserting resource");
   } catch (err) {
-    console.log(err.message);
+    console.error(err.message);
     next(err); // Call next with the error to handle it in a centralized error handler
   }
 }
@@ -354,7 +228,7 @@ async function post_new_resource(req, res, next) {
     // If posted is false or any other issue, you can send an error response
     res.status(500).send("Error in inserting resource");
   } catch (err) {
-    console.log(err.message);
+    console.error(err.message);
     next(err); // Call next with the error to handle it in a centralized error handler
   }
 }
@@ -388,15 +262,13 @@ async function edit_resource(req, res, next) {
       if (the_new_item) {
         console.log("the_new_item2-----------------", the_new_item);
 
-        console.log(" 22");
         return res.status(200).send(the_new_item); // Ensure response is sent and function exits
       }
     }
-    console.log(" 33");
     // If no new item is found, send a different response
     return res.status(404).send("Resource not found or not updated");
   } catch (err) {
-    console.log(" 44");
+    console.error("Error in edit_resources",error);
     res.send(err.message);
     return res.status(500).send(err.message);
 
@@ -428,7 +300,7 @@ async function delete_single_resource(req, res, next) {
   } catch (err) {
     // res.sand(err.message)
     // next(err);
-    console.log(err);
+    console.error(err);
   }
 }
 
@@ -441,7 +313,7 @@ async function UpdateMonitorSingle(req, res, next) {
     );
     res.send(up);
   } catch (error) {
-    console.log("error in UpdateMonitorSingle", error);
+    console.error("error in UpdateMonitorSingle", error);
   }
 }
 async function UpdateMonitorMulti(req, res, next) {
@@ -453,7 +325,7 @@ async function UpdateMonitorMulti(req, res, next) {
     );
     res.send(up);
   } catch (error) {
-    console.log("error in UpdateMonitorSingle", error);
+    console.error("error in UpdateMonitorSingle", error);
   }
 }
 
@@ -473,7 +345,7 @@ async function getResourceToModuleObj(req, res, next) {
 
     res.send(obj);
   } catch (error) {
-    console.log("error in UpdateMonitorSingle", error);
+    console.error("error in UpdateMonitorSingle", error);
   }
 }
 
@@ -510,7 +382,7 @@ async function getFullCategoryAndEntitiesList(req, res, next) {
     });
     res.send(arr[0]?.objFull);
   } catch (error) {
-    console.log("error in getFullCategoryAndEntitiesList", error);
+    console.error("error in getFullCategoryAndEntitiesList", error);
   }
 }
 
@@ -525,7 +397,7 @@ async function AddEntity(req, res, next) {
       res.send(false);
     }
   } catch (error) {
-    console.log("Error in AddEntity : ", error);
+    console.error("Error in AddEntity : ", error);
     res.send(false);
   }
 }
@@ -540,7 +412,7 @@ async function UpdateEntity(req, res, next) {
       res.send(false);
     }
   } catch (error) {
-    console.log("Error in AddEntity : ", error);
+    console.error("Error in AddEntity : ", error);
     res.send(false);
   }
 }
@@ -559,7 +431,7 @@ async function DeleteSingleEntity(req, res, next) {
   } catch (err) {
     // res.sand(err.message)
     // next(err);
-    console.log(err);
+    console.error(err);
   }
 }
 
@@ -569,7 +441,7 @@ async function AddTagToResource(req, res, next) {
     const AddTagAction = await AddTagToResourceModal(id, tag);
     res.send(true);
   } catch (err) {
-    console.log("Error in AddTagToResource", err);
+    console.error("Error in AddTagToResource", err);
   }
 }
 
@@ -579,7 +451,7 @@ async function DeleteTagToResource(req, res, next) {
     const DeleteTagAction = await DeleteTagToResourceModal(id, tag);
     res.send({ newTags: DeleteTagAction });
   } catch (err) {
-    console.log("Error in DeleteTagToResource", err);
+    console.error("Error in DeleteTagToResource", err);
   }
 }
 

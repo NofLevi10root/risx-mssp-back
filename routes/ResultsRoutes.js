@@ -32,11 +32,10 @@ const storage = multer.diskStorage({
         path.parse(file.originalname).name + ".001"
       );
       console.log("File Prep Done ", file.originalname);
-      
 
       cb(null, directoryPath);
     } catch (error) {
-      console.log("Error in File Upload Multer  :  ", error);
+      console.error("Error in File Upload Multer  :  ", error);
     }
   },
   filename: function (req, file, cb) {
@@ -70,10 +69,7 @@ router.post(
   ResultsController.ImportVeloResult
 );
 
-router.post(
-  "/GetRules",
-  ResultsController.GetRules
-);
+router.post("/GetRules", ResultsController.GetRules);
 
 //  router.get('/count-responses-files', ResultsController.count_velociraptor_responses);
 

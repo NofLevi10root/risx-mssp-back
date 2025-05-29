@@ -30,7 +30,7 @@ async function Checking_if_file_exists_model(ResponsePath) {
   } catch (err) {
     if (err.code === "ENOENT") {
       // File does not exist
-      console.log(`File or folder does not exist: ${filePath}`);
+      console.error(`File or folder does not exist: ${filePath}`);
       return {
         success: false,
         message: `File or folder does not exist: ${filePath}`,
@@ -72,7 +72,7 @@ async function delete_json_results_file_model() {
   } catch (err) {
     if (err.code === "ENOENT") {
       // File does not exist
-      console.log(`File or folder does not exist: ${filePath}`);
+      console.error(`File or folder does not exist: ${filePath}`);
       return {
         success: false,
         message: `File or folder does not exist 22: ${filePath}`,
@@ -146,6 +146,8 @@ async function get_all_latest_results_dates(results) {
       return lastResults;
     }
   } catch (err) {
+    console.error("Error in get_all_latest_results_dates :", err);
+
     return err.message;
     next(err);
   }
@@ -166,7 +168,7 @@ function string_to_date(dateString) {
 
     return event;
   } catch (err) {
-    console.log(err);
+    console.error(err);
     return "error in date";
   }
 }
@@ -224,7 +226,7 @@ function compare_dates(end_date, start_date) {
 
     return;
   } catch (err) {
-    console.log(err);
+    console.error(err);
     return "check compare_dates";
   }
 }
@@ -264,7 +266,7 @@ async function add_time_note(ReqestStatus) {
     }
     return "ddddd";
   } catch (err) {
-    console.log("add_time_note ", err);
+    console.error("add_time_note ", err);
 
     return err;
   }
@@ -393,6 +395,8 @@ async function get_all_velociraptor_artifacts_model() {
       return all_velociraptor_artifacts;
     }
   } catch (err) {
+    console.error("Error in get_all_velociraptor_artifacts_model :", err);
+
     res.send(err);
   }
 }
@@ -488,7 +492,7 @@ async function order_result_aggregate_macro_model(result) {
 
     return result;
   } catch (err) {
-    console.log("order_result_aggregate_macro_model", err);
+    console.error("order_result_aggregate_macro_model", err);
     return err;
   }
 }
@@ -610,7 +614,7 @@ async function ImportVeloResultModal(command) {
           }
 
           if (stderr) {
-            console.log(`Error: ${stderr}`);
+            console.error(`Error: ${stderr}`);
             // resolve(false);
             return;
           }
@@ -623,7 +627,7 @@ async function ImportVeloResultModal(command) {
           resolve(true);
         });
       } catch (error) {
-        console.log("Error in exec ImportVeloResultModal ", error);
+        console.error("Error in exec ImportVeloResultModal ", error);
         resolve(false);
       }
     });

@@ -18,9 +18,9 @@ function validateBody(schema) {
     // console.log("start   validation body", req.body);
 
     if (!valid) {
-      console.log(ajv?.errors[0]?.message);
+      console.error(ajv?.errors[0]?.message);
 
-      console.log(
+      console.error(
         `In field ${ajv?.errors[0]?.message} In field ${ajv?.errors[0]?.instancePath}`
       );
       // return res.status(400).send(ajv?.errors[0]?.message)

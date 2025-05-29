@@ -23,13 +23,16 @@ router.get("/DeleteResultHistory", ConfigController.DeleteResultHistory);
 router.get("/GetAllVeloConfig", ConfigController.GetAllVeloConfig);
 router.post("/SaveConfigVelo", ConfigController.SaveConfigVelo);
 router.post("/InsertConfigVelo", ConfigController.InsertConfigVelo);
-router.get("/GetAllVeloConfigSideBar", ConfigController.GetAllVeloConfigSideBar);
+router.get(
+  "/GetAllVeloConfigSideBar",
+  ConfigController.GetAllVeloConfigSideBar
+);
 router.post("/GetSpecificCollector", ConfigController.GetSpecificCollector);
-router.post("/CreateStorageVeloDiskAgent", ConfigController.CreateStorageVeloDiskAgent);
+router.post(
+  "/CreateStorageVeloDiskAgent",
+  ConfigController.CreateStorageVeloDiskAgent
+);
 router.post("/BringSpecificConfig", ConfigController.BringSpecificConfig);
 router.post("/SaveSpecificConfig", ConfigController.SaveSpecificConfig);
-
-
-
 
 module.exports = router;

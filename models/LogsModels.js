@@ -46,7 +46,7 @@ async function get_log_model(logName, fileName) {
         log_file_name
       );
     } else {
-      console.log("logName not found");
+      console.error("logName not found");
     }
 
     // Check if the file exists
@@ -76,7 +76,9 @@ async function get_log_model(logName, fileName) {
       });
     });
     return { status: 200, content: log_content };
-  } catch (error) {
+  } catch (err) {
+    console.error("Error in get_log_model :", err);
+
     return { status: 500, message: `Error: ${error.message}` };
   }
 }
@@ -124,7 +126,7 @@ async function DeleteLogModal(logName, fileName) {
         log_file_name
       );
     } else {
-      console.log("logName not found");
+      console.error("logName not found");
     }
     // Check if the file exists
     const fileExists = await new Promise((resolve) => {
@@ -155,7 +157,7 @@ async function DeleteLogModal(logName, fileName) {
     );
     return true;
   } catch (error) {
-    console.log("Error in DeleteLogModal", error);
+    console.error("Error in DeleteLogModal", error);
     return false;
   }
 }

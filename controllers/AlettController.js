@@ -66,7 +66,7 @@ async function GetAlertFileData(req, res, next) {
 
     res.send(data);
   } catch (error) {
-    console.log(error, "GetAlertFileData GetAlertFileData");
+    console.error(error, "GetAlertFileData GetAlertFileData");
   }
 }
 
@@ -83,7 +83,7 @@ async function UpdateAlertFileData(req, res, next) {
       res.status(404).send("No Such alert");
     }
   } catch (err) {
-    console.log("Error In Update alert file ", err);
+    console.error("Error In Update alert file ", err);
     res.status(404).send({ msg: "Error in update", error: err });
   }
 }
@@ -100,7 +100,7 @@ async function UpdateAlertState(req, res, next) {
       res.status(404).send("No Such alert");
     }
   } catch (err) {
-    console.log("Error In Update alert file ", err);
+    console.error("Error In Update alert file ", err);
     res.status(404).send({ msg: "Error in update", error: err });
   }
 }
@@ -115,7 +115,7 @@ async function GetAlertsConfig(req, res, next) {
     const responseMod = await GetAlertsConfigMod(id);
     res.send(responseMod);
   } catch (err) {
-    console.log("Error In Update alert file ", err);
+    console.error("Error In Update alert file ", err);
     res.status(404).send({ msg: "Error in update", error: err });
   }
 }
@@ -130,7 +130,7 @@ async function UpdateAlertConfig(req, res, next) {
     }
     res.send({ bool: responseMod });
   } catch (err) {
-    console.log("Error In Update alert file ", err);
+    console.error("Error In Update alert file ", err);
     res.status(404).send({ msg: "Error in update", error: err });
   }
 }
@@ -142,7 +142,7 @@ async function GetAllAlertsMonitor(req, res, next) {
     const responseMod = await GetAllAlertsMonitorMod();
     res.send(responseMod);
   } catch (err) {
-    console.log("Error In UGetAllAlertsMonitor ", err);
+    console.error("Error In UGetAllAlertsMonitor ", err);
     res.status(404).send({ msg: "Error in GetAllAlertsMonitor", error: err });
   }
 }
@@ -154,7 +154,7 @@ async function ClearAlertDataChange(req, res, next) {
     const responseMod = await ClearAlertDataChangeMod();
     res.send(responseMod);
   } catch (err) {
-    console.log("Error In ClearAlertDataChange ", err);
+    console.error("Error In ClearAlertDataChange ", err);
     res.status(404).send({ msg: "Error in ClearAlertDataChange", error: err });
   }
 }

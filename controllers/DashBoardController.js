@@ -41,7 +41,7 @@ async function GetDashBoardFile(req, res, next) {
       }
     }
   } catch (err) {
-    console.log(err);
+    console.error(err);
   }
 }
 
@@ -71,7 +71,7 @@ async function GetDashBoardClientIdVelo(req, res, next) {
 
     res.send(file[name[0]?.resource_string] ?? false);
   } catch (error) {
-    console.log("error in GetDashBoardClientIdVelo :", error);
+    console.error("error in GetDashBoardClientIdVelo :", error);
   }
 }
 
@@ -81,7 +81,7 @@ async function ClearResultsDataDashboard(req, res, next) {
     const rer = await ClearResultsDataDashboardMod();
     res.send(rer);
   } catch (error) {
-    console.log("Error in ClearResultsDataDashboard: ", error);
+    console.error("Error in ClearResultsDataDashboard: ", error);
   }
 }
 

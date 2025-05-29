@@ -6,7 +6,7 @@ async function GetDashFile(pathToFile) {
     const file = await fs.readFileSync(pathToFile, "utf-8");
     return JSON.parse(file);
   } catch (error) {
-    console.log("error in dash getter", error);
+    console.error("error in dash getter", error);
     return false;
   }
 }
@@ -18,7 +18,7 @@ async function GetClientName(id) {
     );
     return Arr;
   } catch (error) {
-    console.log("error in dash getter", error);
+    console.error("error in dash getter", error);
     return false;
   }
 }
@@ -38,7 +38,7 @@ async function ClearResultsDataDashboardMod() {
 
     return true;
   } catch (error) {
-    console.log("error in ClearResultsDataDashboardMod", error);
+    console.error("error in ClearResultsDataDashboardMod", error);
     return false;
   }
 }

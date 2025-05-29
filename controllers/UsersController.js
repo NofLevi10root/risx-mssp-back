@@ -1,55 +1,69 @@
-const { Get_all_users_model ,check_if_email_exists,insert_new_user} = require('../models/UsersModels');
+const {
+  Get_all_users_model,
+  check_if_email_exists,
+  insert_new_user,
+} = require("../models/UsersModels");
 //  const DBConnection = require('../db.js')
-const bcrypt = require('bcrypt');
-
-
-
+const bcrypt = require("bcrypt");
 
 async function Create_user(req, res, next) {
-console.log(req.body);
-  const { user_name, email, password , type ,address ,state , phone_number} = req.body
- 
+  console.log(req.body);
+  const { user_name, email, password, type, address, state, phone_number } =
+    req.body;
 
- 
-  if (!user_name || !email || !password) { return res.status(400).json({ success: false, message: 'All fields are required' });}
- 
+  if (!user_name || !email || !password) {
+    return res
+      .status(400)
+      .json({ success: false, message: "All fields are required" });
+  }
+
   try {
- 
-  const user = await check_if_email_exists(email);
+    const user = await check_if_email_exists(email);
     if (user) {
-      return res.status(400).json({ success: false, message: 'User already exists' });
+      return res
+        .status(400)
+        .json({ success: false, message: "User already exists" });
     }
 
     // Insert new user
-    const new_id = await insert_new_user(user_name,email,password,type ,address ,state ,phone_number);
+    const new_id = await insert_new_user(
+      user_name,
+      email,
+      password,
+      type,
+      address,
+      state,
+      phone_number
+    );
 
-    if (new_id ) {
-      console.log("new_user1id_short",new_id);
-          res.status(201).json({ success: true, message: 'User registered successfully', new_id });
+    if (new_id) {
+      console.log("new_user1id_short", new_id);
+      res
+        .status(201)
+        .json({
+          success: true,
+          message: "User registered successfully",
+          new_id,
+        });
     }
-
   } catch (error) {
-    console.error('Registration error:', error);
-    res.status(500).json({ success: false, message: 'Server error during registration' });
+    console.error("Registration error:", error);
+    res
+      .status(500)
+      .json({ success: false, message: "Server error during registration" });
   }
 }
 
-
-
- 
-
-
 async function Get_all_users(req, res, next) {
   console.log("Get_all_users");
-  try{
- 
-    const all = await Get_all_users_model()  
- res.send(all)
-  }catch(err)
-  {console.log(err);}
+  try {
+    const all = await Get_all_users_model();
+    res.send(all);
+  } catch (err) {
+    console.error(err);
+  }
 }
- 
- 
+
 // async function Login(req, res, next) {
 //   console.log("Login");
 //   const { input_email, input_password } = req.body;
@@ -79,8 +93,8 @@ async function Get_all_users(req, res, next) {
 
 //       // Remove the password from the user object before sending
 //       const { password, ...userWithoutPassword } = user;
-//       res.json({ 
-//         success: true, 
+//       res.json({
+//         success: true,
 //         user: userWithoutPassword
 //       });
 //     } else {
@@ -94,12 +108,9 @@ async function Get_all_users(req, res, next) {
 //   res.status(500).json({ success: false, message: 'Server error' });
 // }
 // }
- 
-
- 
 
 module.exports = {
- Get_all_users,
-//  Login,
-Create_user
+  Get_all_users,
+  //  Login,
+  Create_user,
 };

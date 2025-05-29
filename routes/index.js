@@ -10,7 +10,6 @@ const LogsRoutes = require("./LogsRoutes");
 const DashboardRoute = require("./DashboardRoute");
 const AlertRoutes = require("./AlertRoutes");
 
-
 router.use("/Resources", ResourcesRoutes);
 router.use("/tools", ToolsRoutes);
 router.use("/results", ResultsRoutes);
@@ -20,6 +19,5 @@ router.use("/users", UsersRoutes);
 router.use("/logs", LogsRoutes);
 router.use("/dashboard", DashboardRoute);
 router.use("/Alerts", AlertRoutes);
-
 
 module.exports = router;

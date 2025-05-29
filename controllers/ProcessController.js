@@ -45,7 +45,7 @@ async function check_and_active_interval(req, res, next) {
         });
     }
   } catch (err) {
-    console.log(err);
+    console.error(err);
   }
 }
 
@@ -61,6 +61,8 @@ async function kill_interval_of_python(req, res, next) {
       res.status(404).json({ message: "No matching processes found to kill." });
     }
   } catch (err) {
+    console.error("Error in kill interval of python:", error);
+
     res.status(500).json({ message: `Failed to kill process: ${err.message}` });
   }
 }
@@ -108,39 +110,7 @@ async function Check_Interval_Status(req, res, next) {
     console.error(` check_main_process_status_model catch(err): ${err}`);
     console.log(err);
   }
-
-  // try {
-
-  // const process_status = await check_main_process_status_model();
-
-  //   const bobo =  await  check_main_process_status_model().then(isRunning => {
-  //     console.log('Process running status:', isRunning);
-  //     //  res.send(isRunning)
-  //      ;
-  //     if (bobo){      console.log('isRunning bobo ', isRunning,"sssssss",bobo );}
-  // }).catch(error => {
-  //     console.error('Error:', error);res.send("sssssssssssssssssss"); next(error);
-  // });
 }
-
-// async function active_manual_process(req,res,next){
-//   console.log("active_manual_process"  );
-
-// try{
-//   await  active_manual_process_model().then(isRunning => {
-//   console.log('active_manual_process_model:', isRunning)
-// if      (isRunning === true) {res.send(true);}
-// else if(isRunning === false) { res.send("Error");}
-
-// }).catch(error => {
-//   console.error('Error:', error);res.send(false); next(error);
-// });
-
-//   }
-//   catch(err)
-//   {console.log("err in active_manual_process" , err);}
-
-// }
 
 async function active_manual_process(req, res, next) {
   console.log("active_manual_process");
@@ -201,14 +171,3 @@ module.exports = {
   check_and_active_interval,
   kill_interval_of_python,
 };
-// const isActive =  await  active_manual_process_model().then(isRunning => {
-//   console.log('Process running status 22222222222222222222222222222222:', isRunning)
-//   res.send(isRunning);
-
-// }).catch(error => {
-//   console.error('Error:', error);res.send("sssssssssssssssssss"); next(error);
-// });
-
-// if (isActive){      console.log('isRunning bobo ', isRunning,"sssssss",isActive );
-// res.send("koko")
-// }

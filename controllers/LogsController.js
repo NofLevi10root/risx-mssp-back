@@ -15,7 +15,7 @@ async function Get_Log(req, res, next) {
 
     res.send(log_file_data);
   } catch (err) {
-    console.log("errrrrrrrrrrrrrrr", err);
+    console.error("errrrrrrrrrrrrrrr", err);
   }
 }
 
@@ -35,7 +35,7 @@ async function DeleteLog(req, res, next) {
 
     res.send(log_file_data);
   } catch (err) {
-    console.log("errrrrrrrrrrrrrrr", err);
+    console.error("errrrrrrrrrrrrrrr", err);
   }
 }
 

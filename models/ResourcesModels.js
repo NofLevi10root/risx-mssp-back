@@ -12,7 +12,7 @@ const { v4: uuid } = require("uuid");
 
 async function get_single_resource_by_id(resource_id) {
   if (!resource_id) {
-    console.log("problem no resource_id");
+    console.error("problem no resource_id");
   }
 
   try {
@@ -26,14 +26,14 @@ async function get_single_resource_by_id(resource_id) {
       return single;
     }
   } catch (err) {
-    console.log("get_All_Resources_model err", err);
+    console.error("get_All_Resources_model err", err);
   }
 }
 
 async function get_single_entity_by_id(entities_id) {
   if (!entities_id) {
-    console.log("problem no  entities_id");
-    return false
+    console.error("problem no  entities_id");
+    return false;
   }
 
   try {
@@ -47,7 +47,7 @@ async function get_single_entity_by_id(entities_id) {
       return single;
     }
   } catch (err) {
-    console.log("get_All_Resources_model err", err);
+    console.error("get_All_Resources_model err", err);
   }
 }
 
@@ -80,7 +80,7 @@ async function post_new_resource_model(
 
     return id_with_r;
   } catch (err) {
-    console.log(err.message);
+    console.error(err.message);
     // next(err); // Call next with the error to handle it in a centralized error handler
   }
 }
@@ -189,26 +189,8 @@ async function get_All_Resources_model() {
     // console.log("groupedResources",groupedResources);
     return groupedResources;
   } catch (err) {
-    console.log("get_All_Resources_model err", err);
+    console.error("get_All_Resources_model err", err);
   }
-
-  // try {
-  //   const resourcesQuery = DBConnection('all_resources')
-  //   .select('all_resources.resource_id', 'all_resources.resource_string', 'all_resources.description', 'all_resources.resource_status', 'all_resources.monitoring', 'all_resources.parent_id', 'all_resources.checked', 'all_resources.updatedAt',
-  //     DBConnection.raw('JSON_ARRAYAGG(JSON_OBJECT("Toolid", tools.tool_id, "toolname", tools.Tool_name)) as tools'),
-  //     DBConnection.raw('(SELECT JSON_ARRAYAGG(JSON_OBJECT("resource_type_id", resource_type.resource_type_id, "resource_type_name", resource_type.resource_type_name)) FROM (SELECT DISTINCT resource_type.resource_type_id, resource_type.resource_type_name FROM resource_type WHERE FIND_IN_SET(resource_type.resource_type_id, all_resources.type)) AS resource_type) AS types')
-  //   )
-  //   .leftJoin('tools', function () {
-  //     this.on(DBConnection.raw('FIND_IN_SET(tools.tool_id, REPLACE(all_resources.tools, " ", ""))'));
-  //   })
-  //   .groupBy('all_resources.resource_id');
-
-  //   const [resources    ] = await Promise.all([resourcesQuery ]);
-  //   if (resources){return resources}
-  //   // res.send(resources);
-  // } catch (err) {
-  //   console.log("get_All_Resources_model err",err);
-  // }
 }
 
 async function get_Same_Type_model(asset_type_id) {
@@ -247,7 +229,7 @@ async function get_Same_Type_model(asset_type_id) {
 
     return resources;
   } catch (err) {
-    console.log("get_Same_Type_model error:", err);
+    console.error("get_Same_Type_model error:", err);
     throw err; // Optionally rethrow the error to propagate it further
   }
 }
@@ -267,7 +249,7 @@ async function get_All_Resource_Type_model() {
       return resourcesQuery;
     }
   } catch (err) {
-    console.log("get_All_Resource_Type_model", err);
+    console.error("get_All_Resource_Type_model", err);
   }
 }
 
@@ -291,7 +273,7 @@ async function Count_From_Same_Type_model(AllResourceType, All_Resources) {
 
     return "Shoko Banana";
   } catch (err) {
-    console.log("Count_From_Same_Type_model", err);
+    console.error("Count_From_Same_Type_model", err);
   }
 }
 
@@ -320,7 +302,7 @@ async function Make_Array_to_count_Resorce_by_type(AllResourceType) {
     });
     return AllResourceType;
   } catch (err) {
-    console.log("get_All_Resource_Type_model_00", err);
+    console.error("get_All_Resource_Type_model_00", err);
   }
 }
 
@@ -356,7 +338,7 @@ async function check_if_string_exist_in_db_old(
       return true;
     }
   } catch (err) {
-    console.log(err);
+    console.error(err);
   }
 }
 
@@ -426,7 +408,7 @@ async function check_if_id_exist_in_db(resource_id) {
       return true;
     }
   } catch (err) {
-    console.log(err);
+    console.error(err);
   }
 }
 
@@ -446,7 +428,7 @@ async function delete_single_resource_by_id(resource_id) {
       return false;
     }
   } catch (err) {
-    console.log(err);
+    console.error(err);
   }
 }
 
@@ -458,7 +440,7 @@ async function UpdateMonitorSingleModal(id, val) {
     );
     return true;
   } catch (error) {
-    console.log("error in UpdateMonitorSingleModal ", error);
+    console.error("error in UpdateMonitorSingleModal ", error);
     return false;
   }
 }
@@ -471,7 +453,7 @@ async function UpdateMonitorMultiModal(id, val) {
     );
     return true;
   } catch (error) {
-    console.log("error in UpdateMonitorMultiModal ", error);
+    console.error("error in UpdateMonitorMultiModal ", error);
     return false;
   }
 }
@@ -483,7 +465,7 @@ async function GetAllModuleAssignedResources(id) {
     );
     return arr;
   } catch (error) {
-    console.log(error);
+    console.error(error);
   }
 }
 
@@ -557,7 +539,7 @@ async function getFullCategoryAndEntitiesListModal(id) {
     }
     return arr;
   } catch (error) {
-    console.log(error);
+    console.error(error);
   }
 }
 
@@ -571,7 +553,7 @@ async function AddEntityModal(data) {
 
     return true;
   } catch (error) {
-    console.log("Error in AddEntityModal : ", error);
+    console.error("Error in AddEntityModal : ", error);
     return false;
   }
 }
@@ -587,7 +569,7 @@ async function UpdateEntityModal(data) {
 
     return true;
   } catch (error) {
-    console.log("Error in AddEntityModal : ", error);
+    console.error("Error in AddEntityModal : ", error);
     return false;
   }
 }
@@ -612,7 +594,7 @@ async function DeleteSingleEntityModal(EntityId) {
       return false;
     }
   } catch (err) {
-    console.log(err);
+    console.error(err);
   }
 }
 
@@ -624,7 +606,7 @@ async function GetAllEntitiesAndAssetsModal() {
     );
     return [entities, Assets];
   } catch (error) {
-    console.log("Error GetAllEntitiesAndAssetsModal : ", error);
+    console.error("Error GetAllEntitiesAndAssetsModal : ", error);
   }
 }
 
@@ -643,7 +625,7 @@ async function AddTagToResourceModal(id, tag) {
 
     return true;
   } catch (error) {
-    console.log("Error GetAllEntitiesAndAssetsModal : ", error);
+    console.error("Error GetAllEntitiesAndAssetsModal : ", error);
   }
 }
 
@@ -670,7 +652,7 @@ async function DeleteTagToResourceModal(id, tag) {
 
     return newTags;
   } catch (error) {
-    console.log("Error GetAllEntitiesAndAssetsModal : ", error);
+    console.error("Error GetAllEntitiesAndAssetsModal : ", error);
   }
 }
 

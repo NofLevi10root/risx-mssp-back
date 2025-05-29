@@ -14,73 +14,6 @@ const createCsvWriter = require("csv-writer").createObjectCsvWriter;
 const path = require("path");
 const DBConnection = require("../db.js");
 const { spawn } = require("child_process");
-const { log } = require("console");
-
-// async function active_manual_process_model() {
-//   console.log("active_manual_process_model");
-//   try {
-//       const EXECUTABLE = process.env.PYTHON_EXECUTABLE_ABSOLUTE;
-//       const PYTHON_SCRIPTS_RELATIVE_PATH = process.env.PYTHON_SCRIPTS_RELATIVE_PATH;
-//       const PYTHON_INTERVAL = process.env.PYTHON_INTERVAL;
-//       const PYTHON_SCRIPT_PATH = path.resolve(__dirname, '..', '..', PYTHON_SCRIPTS_RELATIVE_PATH,PYTHON_INTERVAL);
-
-//       return new Promise((resolve, reject) => {
-//           const pythonProcess = spawn(EXECUTABLE, [PYTHON_SCRIPT_PATH]);
-
-//           pythonProcess.stdout.on('data', (data) => {
-//               console.log(`stdout: ${data.toString()}`);
-//               // Assuming success based on some condition in the output
-//               resolve(true);
-//           });
-
-//           pythonProcess.stderr.on('data', (data) => {
-//               console.error(`stderr: ${data.toString()}`);
-//               reject(false);
-//           });
-
-//           pythonProcess.on('close', (code) => {
-//               if (code !== 0) {
-//                   console.log(`Child process exited with code ${code}, indicating a failure.`);
-//                   reject(false);
-//               } else {
-//                   resolve(true);
-//               }
-//           });
-//       });
-
-//   } catch (error) {
-//       console.error(`Error occurred: ${error.message}`);
-//       return false;
-//   }
-// }
-
-// async function active_manual_process_model(){
-//   console.log("active_main_process_model 1");
-//   try {
-//     const EXECUTABLE = process.env.PYTHON_EXECUTABLE_ABSOLUTE;
-//     const PYTHON_MANUAL_ACTIVE_RELATIVE_PATH = process.env.PYTHON_MANUAL_ACTIVE_RELATIVE_PATH;
-//     const PYTHON_SCRIPT_PATH = path.resolve(__dirname, '..', '..', PYTHON_MANUAL_ACTIVE_RELATIVE_PATH);
-//     const pythonProcess = spawn(EXECUTABLE, [PYTHON_SCRIPT_PATH]);
-
-//     pythonProcess.stdout.on('data', (data) => {
-//         console.log(`stdout: ${data.toString()}`); return true;
-//     });
-
-//     pythonProcess.stderr.on('data', (data) => {
-//         console.error(`stderr: ${data.toString()}`); return false;
-//     });
-
-//     pythonProcess.on('close', (code) => {
-//         if (code !== 0) {
-//             console.log(`Child process exited with code ${code}, indicating a failure.`); return false;
-//         }
-//     });
-
-// } catch (error) {
-//     console.error(`Error occurred: ${error.message}`); return false
-// }
-
-// }
 
 async function show_in_ui_module_model(module_id, set_ShowInUi_to) {
   console.log("  module_id", module_id, "set_ShowInUi_to", set_ShowInUi_to);
@@ -96,7 +29,7 @@ async function show_in_ui_module_model(module_id, set_ShowInUi_to) {
 
     return { change_this };
   } catch (err) {
-    console.log(err);
+    console.error(err);
   }
 }
 
@@ -121,7 +54,7 @@ async function enable_disable_module_model(module_id, set_enable_disable_to) {
 
     return { change_this };
   } catch (err) {
-    console.log(err);
+    console.error(err);
   }
 }
 
@@ -144,7 +77,7 @@ async function enable_disable_artifact_model(
 
     return { change_this };
   } catch (err) {
-    console.log(err);
+    console.error(err);
   }
 }
 
@@ -161,7 +94,7 @@ async function get_all_Modules_model() {
 
     if (Modules) return { Modules };
   } catch (err) {
-    console.log(err);
+    console.error(err);
   }
 }
 
@@ -174,7 +107,7 @@ async function get_single_Module_by_id_model(module_id) {
 
     if (Module) return Module[0];
   } catch (err) {
-    console.log(err);
+    console.error(err);
   }
 }
 
@@ -197,7 +130,7 @@ async function make_toolData_model(module_id, all_query) {
 
     return toolData;
   } catch (err) {
-    console.log(err);
+    console.error(err);
     return "error in toolData";
   }
 }
@@ -209,7 +142,7 @@ async function make_reponse_file_name(module_id, module_name) {
 
     return FileName;
   } catch (err) {
-    console.log("error in make_reponse_file_name", err);
+    console.error("error in make_reponse_file_name", err);
   }
 }
 
@@ -237,7 +170,9 @@ async function make_JSON_Module_model(module_id, module_name, toolData) {
     });
 
     return filePath;
-  } catch (err) {}
+  } catch (err) {
+    console.error("Error in make_JSON_Module_model :", err);
+  }
 }
 
 async function all_Modules_id_and_trashold() {
@@ -249,7 +184,7 @@ async function all_Modules_id_and_trashold() {
     );
     if (tools) return { tools };
   } catch (err) {
-    console.log(err);
+    console.error(err);
   }
 }
 
@@ -262,7 +197,7 @@ async function all_Artifacts_id_and_trashold() {
     );
     if (artifacts) return { artifacts };
   } catch (err) {
-    console.log(err);
+    console.error(err);
   }
 }
 
@@ -282,7 +217,7 @@ async function get_all_velociraptor_artifacts_model() {
     );
     if (allArtifacts) return { allArtifacts };
   } catch (err) {
-    console.log(err);
+    console.error(err);
   }
 }
 
@@ -314,26 +249,6 @@ function get_Artifact_path_config_file() {
     );
     return path_to_config;
   }
-
-  // const dev_mode = `public`;
-  // const path_for_dev = path.join(__dirname, '..', '..', directory, dev_mode, configFileName);
-  // const path_for_dev = path.join(__dirname, '..', '..', directory, `public`, configFileName);
-
-  // const path_for_client = path.join(__dirname, '..', '..', directory, configFileName);
-  // let path_to_artifact_config = "";
-
-  // try {
-  //   if (fs.existsSync(path_for_dev)) {
-  //     return path_for_dev;
-
-  // } else if (fs.existsSync(path_for_client)) {
-  //   return path_for_client;
-  // }
-
-  // } catch (err) {
-  //     console.error('Error:', err);
-  //     return null; // Return null in case of error
-  // }
 }
 
 async function read_All_Artifacts_config_file(Artifact_path_config_file) {
@@ -385,54 +300,6 @@ async function make_JSON_Artifact_to_velociraptor(artifact_id) {
 
   console.log("6666666666666666666666666666666666", Artifact_config);
 
-  // //   try {
-  // // ///  HardeningKitty
-  // if (artifact_id === '1000103'){
-  //     toolData = {
-  //     action: "runartifact",
-  //     artifactname: "Exchange.Windows.HardeningKitty",
-  //     arguments: "TakeBackUp= 'N', Baseline= 'finding_list_0x6d69636b_machine'",
-  //     expiretime: "70",
-  //     organizationid: "OCHL0",
-  //     label: "iris"
-  // }
-  // }
-  // ///Zircolite
-  // else if (artifact_id === '1000102'){
-  //   toolData = {
-  //   action: "runartifact",
-  //   artifactname: "Exchange.Windows.EventLogs.Zircolite",
-  //   arguments: "EVTXPath= 'C:\\Windows\\System32\\winevt\\Logs', Rules= 'https://raw.githubusercontent.com/wagga40/Zircolite/master/rules/rules_windows_generic.json', Mappings= 'https://raw.githubusercontent.com/wagga40/Zircolite/master/config/fieldMappings.json'",
-  //   expiretime: "120",
-  //   organizationid: "OCHL0",
-  //   label: "iris"
-  // }
-  // }
-  //  ///Persistence Sniper
-  // else if (artifact_id === '1000104'){
-  //   toolData = {
-  //   action: "runartifact",
-  //   artifactname: "Exchange.Windows.PersistenceSniper",
-  //   arguments: "",
-  //   expiretime: "120",
-  //   organizationid: "OCHL0",
-  //   label: "iris"
-  // }
-
-  //  ///Hayabusa
-  // }
-  // else if (artifact_id === '1000105'){
-  //   toolData = {
-  //   action: "runartifact",
-  //   artifactname: "Exchange.Windows.EventLogs.Hayabusa",
-  //   arguments: "UTC= 'Y', UpdateRules= 'Y', NoisyRules= 'N', OutputProfile= 'standard', EIDFilter= 'N', MinimalLevel='informational', Threads= '2'",
-  //   expiretime: "1200",
-  //   organizationid: "OCHL0",
-  //   label: "iris"
-  // }
-
-  // }
-
   const formattedDate = await get_Date_and_hour_string();
 
   const relativePath = process.env.PYTHON_SCRIPTS_RELATIVE_PATH;
@@ -456,9 +323,6 @@ async function make_JSON_Artifact_to_velociraptor(artifact_id) {
   });
 
   return filePath;
-  //   } catch (err) {
-
-  //   }
 }
 
 async function get_Date_and_hour_string(additionalMinutes = 0) {
@@ -544,24 +408,6 @@ async function active_JSON_in_py(request_file_Path_and_Name) {
         );
       }
       return true;
-      // else  if (code == 0) {
-      //   console.log(`לך חפש תקובץ`);
-      //   if (err) {   console.log(err); return }
-
-      //   try{
-
-      //   }
-      //   catch(err){console.log(err);return err}
-
-      //  fs.readFile(response_file_Path_and_Name, 'utf8', function(err, data){
-      //   if(err){console.log(err);return err}
-      // const json_response_of_artifact  =  JSON.parse(data)
-      // return json_response_of_artifact
-
-      // }
-      // );
-
-      // }
     });
   } catch (error) {
     console.error(`Error occurred: ${error.message}`);
@@ -579,16 +425,7 @@ async function write_last_run_of_module(module_id) {
       });
     console.log(write); // This will log the number of rows updated
   } catch (err) {
-    // const put = await DBConnection('all_resources').where({resource_id:resource_id})
-    // .update({
-
-    //   resource_string:  req.body?.resource_string,
-    //   type:item_types_list.toString(),
-    //   tools: item_tool_list.toString(),
-    //   description: description,
-    //   monitoring: monitoring
-    // });
-    console.log(err);
+    console.error(err);
     return err;
   }
 }
@@ -807,7 +644,7 @@ async function change_positions(
 
     return true;
   } catch (err) {
-    console.log(err);
+    console.error(err);
   }
 }
 
@@ -821,7 +658,7 @@ async function GetAllTNA() {
     );
     return [...Art, ...to];
   } catch (err) {
-    console.log(err);
+    console.error(err);
     return err;
   }
 }
@@ -839,7 +676,7 @@ async function UpdateAllTNA(list) {
     );
     return true;
   } catch (err) {
-    console.log(err);
+    console.error(err);
     return false;
   }
 }
