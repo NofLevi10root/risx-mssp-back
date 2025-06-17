@@ -61,7 +61,7 @@ exports.seed = async function (knex) {
           },
 
           {
-            name: "Exchange.Custom.Windows.Nirsoft.LastActivityView",
+            name: "Exchange.Windows.Nirsoft.LastActivityView",
             parameters: {},
           },
           {
