@@ -26,6 +26,10 @@ const fs = require("fs").promises;
 const fs_non_promises = require("fs");
 const { error } = require("console");
 
+// COMMENTED OUT: JSON to CSV download functionality for dashboard results
+// This function was previously used to download JSON files and convert them to CSV format
+// Commenting out to disable the JSON-to-CSV download feature in the dashboard
+/*
 async function download_json_file(req, res, next) {
   try {
     const { ResponsePath } = req.query;
@@ -61,6 +65,22 @@ async function download_json_file(req, res, next) {
     console.error("Error in download_json_file :", err);
 
     res.send(err.message);
+    res.status(500).send("Server error");
+    next(err);
+  }
+}
+*/
+
+// DISABLED: Download functionality temporarily removed
+async function download_json_file(req, res, next) {
+  try {
+    // Function is currently disabled - JSON to CSV conversion has been removed
+    res.status(503).json({ 
+      message: "Download functionality is currently disabled",
+      note: "JSON to CSV conversion feature has been temporarily removed from dashboard results"
+    });
+  } catch (err) {
+    console.error("Error in download_json_file :", err);
     res.status(500).send("Server error");
     next(err);
   }
@@ -398,6 +418,6 @@ module.exports = {
   check_last_req_and_res_for_module,
   get_all_requests_table,
   get_velociraptor_aggregate_macro,
-  download_json_file,
+  download_json_file, // Now returns disabled message instead of downloading files
   delete_results,
 };
