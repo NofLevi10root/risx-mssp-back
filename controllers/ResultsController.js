@@ -25,10 +25,10 @@ const path = require("path");
 const fs = require("fs").promises;
 const fs_non_promises = require("fs");
 const { error } = require("console");
+const createCsvWriter = require('csv-writer').createObjectCsvWriter;
 
-// COMMENTED OUT: JSON to CSV download functionality for dashboard results
-// This function was previously used to download JSON files and convert them to CSV format
-// Commenting out to disable the JSON-to-CSV download feature in the dashboard
+// COMMENTED OUT: Original JSON download functionality
+// This function previously downloaded JSON files directly
 /*
 async function download_json_file(req, res, next) {
   try {
@@ -71,14 +71,99 @@ async function download_json_file(req, res, next) {
 }
 */
 
-// DISABLED: Download functionality temporarily removed
+// NEW IMPLEMENTATION: Convert JSON to CSV before download
 async function download_json_file(req, res, next) {
   try {
-    // Function is currently disabled - JSON to CSV conversion has been removed
-    res.status(503).json({ 
-      message: "Download functionality is currently disabled",
-      note: "JSON to CSV conversion feature has been temporarily removed from dashboard results"
+    const { ResponsePath } = req.query;
+    if (!ResponsePath) {
+      console.log("ResponsePath is", ResponsePath);
+      return res.status(400).send("ResponsePath is required");
+    }
+
+    const relativePath = process.env.PYTHON_SCRIPTS_RELATIVE_PATH;
+    const directoryPath = path.join(__dirname, "..", "..", relativePath);
+    const fullPath = path.join(directoryPath, ResponsePath);
+    console.log("fullPath ---------------------------", fullPath);
+
+    // Check if file exists
+    if (!fs_non_promises.existsSync(fullPath)) {
+      return res.status(404).send("File not found");
+    }
+
+    // Read JSON file
+    const jsonData = await fs.readFile(fullPath, 'utf8');
+    const data = JSON.parse(jsonData);
+
+    // Flatten JSON data for CSV conversion
+    const flattenObject = (obj, prefix = '') => {
+      return Object.keys(obj).reduce((acc, key) => {
+        const value = obj[key];
+        const newKey = prefix ? `${prefix}_${key}` : key;
+        
+        if (value === null || value === undefined) {
+          acc[newKey] = '';
+        } else if (typeof value === 'object' && !Array.isArray(value)) {
+          Object.assign(acc, flattenObject(value, newKey));
+        } else if (Array.isArray(value)) {
+          acc[newKey] = value.join('; ');
+        } else {
+          acc[newKey] = value;
+        }
+        
+        return acc;
+      }, {});
+    };
+
+    // Convert data to array if it's not already
+    const dataArray = Array.isArray(data) ? data : [data];
+    
+    // Flatten all objects in the array
+    const flattenedData = dataArray.map(item => flattenObject(item));
+
+    // If no data, return empty CSV
+    if (flattenedData.length === 0) {
+      res.setHeader('Content-disposition', 'attachment; filename=data.csv');
+      res.setHeader('Content-type', 'text/csv');
+      return res.send('');
+    }
+
+    // Get all unique headers from all objects
+    const allHeaders = new Set();
+    flattenedData.forEach(item => {
+      Object.keys(item).forEach(key => allHeaders.add(key));
     });
+    const headers = Array.from(allHeaders);
+
+    // Create CSV content
+    const csvContent = [];
+    
+    // Add headers
+    csvContent.push(headers.join(','));
+    
+    // Add data rows
+    flattenedData.forEach(row => {
+      const values = headers.map(header => {
+        const value = row[header] !== undefined ? row[header] : '';
+        // Escape values that contain commas, quotes, or newlines
+        if (typeof value === 'string' && (value.includes(',') || value.includes('"') || value.includes('\n'))) {
+          return `"${value.replace(/"/g, '""')}"`;
+        }
+        return value;
+      });
+      csvContent.push(values.join(','));
+    });
+
+    // Generate filename
+    const originalFileName = path.basename(fullPath, '.json');
+    const csvFileName = `${originalFileName}.csv`;
+
+    // Set headers for CSV download
+    res.setHeader('Content-disposition', `attachment; filename=${csvFileName}`);
+    res.setHeader('Content-type', 'text/csv');
+
+    // Send CSV content
+    res.send(csvContent.join('\n'));
+
   } catch (err) {
     console.error("Error in download_json_file :", err);
     res.status(500).send("Server error");
@@ -418,6 +503,6 @@ module.exports = {
   check_last_req_and_res_for_module,
   get_all_requests_table,
   get_velociraptor_aggregate_macro,
-  download_json_file, // Now returns disabled message instead of downloading files
+  download_json_file, // Now converts JSON to CSV before downloading
   delete_results,
 };
