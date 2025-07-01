@@ -51,7 +51,13 @@ router.get(
   "/velociraptor-single-result",
   ResultsController.get_single_velociraptor_response
 );
-router.get("/download-json-file", ResultsController.download_json_file);
+
+// COMMENTED OUT: JSON to CSV download route for dashboard results
+// This route was used to download JSON files and convert them to CSV format
+// router.get("/download-json-file", ResultsController.download_json_file);
+
+// DISABLED ROUTE: Download functionality temporarily removed
+router.get("/download-json-file", ResultsController.download_json_file); // Returns disabled message
 
 router.get(
   "/velociraptor-aggregate-macro",
